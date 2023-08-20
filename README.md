@@ -275,6 +275,8 @@ https://github.com/Balackburn/YTLitePlus/releases
 
 - YTLitePlus has a lightweight Version of the App Version Spoofer which makes it easier to use.
 
+- YTLitePlus does not make your device heat up unlike uYouPlusExtra. 
+
 **Cons**
 
 - No Video Downloading in YTLitePlus.
