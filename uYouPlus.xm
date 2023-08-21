@@ -15,6 +15,25 @@ NSBundle *uYouPlusBundle() {
 }
 NSBundle *tweakBundle = uYouPlusBundle();
 
+// Keychain fix
+static NSString *accessGroupID() {
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge NSString *)kSecClassGenericPassword, (__bridge NSString *)kSecClass,
+                           @"bundleSeedID", kSecAttrAccount,
+                           @"", kSecAttrService,
+                           (id)kCFBooleanTrue, kSecReturnAttributes,
+                           nil];
+    CFDictionaryRef result = nil;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+    if (status == errSecItemNotFound)
+        status = SecItemAdd((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+        if (status != errSecSuccess)
+            return nil;
+    NSString *accessGroup = [(__bridge NSDictionary *)result objectForKey:(__bridge NSString *)kSecAttrAccessGroup];
+
+    return accessGroup;
+}
+
 //
 static BOOL IsEnabled(NSString *key) {
     return [[NSUserDefaults standardUserDefaults] boolForKey:key];
@@ -188,6 +207,40 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     NSString *altBundleIdentifier = info[@"ALTBundleIdentifier"];
     if (altBundleIdentifier) info[@"CFBundleIdentifier"] = altBundleIdentifier;
     return info;
+}
+%end
+
+// Fix login for YouTube 18.13.2 and higher @BandarHL
+%hook SSOKeychainHelper
++ (NSString *)accessGroup {
+    return accessGroupID();
+}
++ (NSString *)sharedAccessGroup {
+    return accessGroupID();
+}
+%end
+
+// Fix login for YouTube 17.33.2 and higher - @BandarHL
+// https://gist.github.com/BandarHL/492d50de46875f9ac7a056aad084ac10
+%hook SSOKeychainCore
++ (NSString *)accessGroup {
+    return accessGroupID();
+}
+
++ (NSString *)sharedAccessGroup {
+    return accessGroupID();
+}
+%end
+
+// Fix App Group Directory by move it to document directory
+%hook NSFileManager
+- (NSURL *)containerURLForSecurityApplicationGroupIdentifier:(NSString *)groupIdentifier {
+    if (groupIdentifier != nil) {
+        NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *documentsURL = [paths lastObject];
+        return [documentsURL URLByAppendingPathComponent:@"AppGroup"];
+    }
+    return %orig(groupIdentifier);
 }
 %end
 
