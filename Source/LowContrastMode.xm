@@ -35,7 +35,7 @@ static BOOL pinkContrastMode() {
     return IsEnabled(@"lowContrastMode_enabled") && colorContrastMode() == 8;
 }
 
-%group gLowContrastMode // Low Contrast Mode v1.4.0 (Compatible with only YouTube v16.05.7-v17.38.10)
+%group gLowContrastMode // Low Contrast Mode v1.4.1 (Compatible with only YouTube v16.05.7-v17.38.10)
 %hook UIColor
 + (UIColor *)whiteColor { // Dark Theme Color
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
@@ -57,54 +57,6 @@ static BOOL pinkContrastMode() {
 }
 + (UIColor *)quaternaryLabelColor {
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-// testing below
-+ (UIColor *)systemTextColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)systemPlaceholderColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)systemLabelColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)systemSecondaryLabelColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)systemTertiaryLabelColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)systemQuaternaryLabelColor {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-%end
-%hook YTCommonColorPalette
-- (UIColor *)textPrimary {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)textSecondary {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)overlayTextPrimary {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)overlayTextSecondary {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)iconActive {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)iconActiveOther {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)brandIconActive {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)staticBrandWhite {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
-}
-- (UIColor *)overlayIconActiveOther {
-    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig; // Dark Theme
 }
 %end
 %hook QTMColorGroup
@@ -144,6 +96,12 @@ static BOOL pinkContrastMode() {
     UIImage *currentImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self setTintColor:[UIColor whiteColor]];
     %orig(currentImage);
+}
+%end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
 }
 %end
 %hook VideoTitleLabel
@@ -360,6 +318,12 @@ static BOOL pinkContrastMode() {
     %orig(currentImage);
 }
 %end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
+}
+%end
 %hook VideoTitleLabel
 - (void)setTextColor:(UIColor *)textColor {
     textColor = [UIColor whiteColor];
@@ -572,6 +536,12 @@ static BOOL pinkContrastMode() {
     UIImage *currentImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self setTintColor:[UIColor whiteColor]];
     %orig(currentImage);
+}
+%end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
 }
 %end
 %hook VideoTitleLabel
@@ -789,6 +759,12 @@ static BOOL pinkContrastMode() {
     %orig(currentImage);
 }
 %end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
+}
+%end
 %hook VideoTitleLabel
 - (void)setTextColor:(UIColor *)textColor {
     textColor = [UIColor whiteColor];
@@ -1001,6 +977,12 @@ static BOOL pinkContrastMode() {
     UIImage *currentImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self setTintColor:[UIColor whiteColor]];
     %orig(currentImage);
+}
+%end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
 }
 %end
 %hook VideoTitleLabel
@@ -1217,6 +1199,12 @@ static BOOL pinkContrastMode() {
     %orig(currentImage);
 }
 %end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
+}
+%end
 %hook VideoTitleLabel
 - (void)setTextColor:(UIColor *)textColor {
     textColor = [UIColor whiteColor];
@@ -1429,6 +1417,12 @@ static BOOL pinkContrastMode() {
     UIImage *currentImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self setTintColor:[UIColor whiteColor]];
     %orig(currentImage);
+}
+%end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
 }
 %end
 %hook VideoTitleLabel
@@ -1645,6 +1639,12 @@ static BOOL pinkContrastMode() {
     %orig(currentImage);
 }
 %end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
+}
+%end
 %hook VideoTitleLabel
 - (void)setTextColor:(UIColor *)textColor {
     textColor = [UIColor whiteColor];
@@ -1857,6 +1857,12 @@ static BOOL pinkContrastMode() {
     UIImage *currentImage = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self setTintColor:[UIColor whiteColor]];
     %orig(currentImage);
+}
+%end
+%hook UIExtendedSRGColorSpace
+- (void)setTextColor:(UIColor *)textColor {
+    textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+    %orig();
 }
 %end
 %hook VideoTitleLabel
