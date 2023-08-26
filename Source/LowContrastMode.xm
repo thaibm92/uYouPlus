@@ -59,6 +59,44 @@ static BOOL pinkContrastMode() {
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
 }
 %end
+%hook YTCommonColorPalette
+- (UIColor *)textPrimary {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)textSecondary {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)overlayTextPrimary {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)overlayTextSecondary {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)iconActive {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)iconActiveOther {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)brandIconActive {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)staticBrandWhite {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+- (UIColor *)overlayIconActiveOther {
+     if (self.pageStyle == 1) {
+         return [UIColor whiteColor];
+}
+%end
 %hook QTMColorGroup
 - (UIColor *)tint100 {
     return [UIColor whiteColor];
