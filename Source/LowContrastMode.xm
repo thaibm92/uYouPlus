@@ -61,40 +61,31 @@ static BOOL pinkContrastMode() {
 %end
 %hook YTCommonColorPalette
 - (UIColor *)textPrimary {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)textSecondary {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)overlayTextPrimary {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)overlayTextSecondary {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)iconActive {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)iconActiveOther {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)brandIconActive {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)staticBrandWhite {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)overlayIconActiveOther {
-     if (self.pageStyle == 1) {
-         return [UIColor whiteColor];
+    return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
 %end
 %hook QTMColorGroup
