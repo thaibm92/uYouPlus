@@ -174,24 +174,6 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook SponsorBlockSettingsController
-- (void)viewDidLoad {
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        %orig;
-        self.tableView.backgroundColor = originalColor;
-    } else { return %orig; }
-}
-%end
-
-%hook SponsorBlockViewController
-- (void)viewDidLoad {
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        %orig;
-        self.view.backgroundColor = originalColor;
-    } else { return %orig; }
-}
-%end
-
 %hook ELMView
 - (void)didMoveToWindow {
     %orig;
@@ -584,7 +566,8 @@ UIColor* raisedColor = [UIColor blackColor];
 }
 %end
 
-// uYou settings
+/*
+// uYou settings (Conflicts iSponsorBlock)
 %hook UITableViewCell
 - (void)_layoutSystemBackgroundView {
     %orig;
@@ -617,6 +600,7 @@ UIColor* raisedColor = [UIColor blackColor];
     self.tableView.backgroundColor = [UIColor blackColor];
 }
 %end
+*/
 
 %hook YTInnerTubeCollectionViewController
 - (UIColor *)backgroundColor:(NSInteger)pageStyle {
