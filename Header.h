@@ -142,6 +142,13 @@
 @end
 
 // App Theme
+@interface YTColor : NSObject
++ (UIColor *)white2;
++ (UIColor *)white3;
++ (UIColor *)white4;
++ (UIColor *)white5;
+@end
+
 @interface YCHLiveChatView : UIView
 @end
 
