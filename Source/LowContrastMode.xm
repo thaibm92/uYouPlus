@@ -58,18 +58,6 @@ static BOOL pinkContrastMode() {
 + (UIColor *)quaternaryLabelColor {
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
 }
-+ (UIColor *)white2 {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)white3 {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)white4 {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
-+ (UIColor *)white5 {
-         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
-}
 %end
 %hook YTCommonColorPalette
 - (UIColor *)textPrimary {
@@ -98,6 +86,20 @@ static BOOL pinkContrastMode() {
 }
 - (UIColor *)overlayIconActiveOther {
     return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
+}
+%end
+%hook YTColor
++ (UIColor *)white2 {
+    return [UIColor whiteColor];
+}
++ (UIColor *)white3 {
+    return [UIColor whiteColor];
+}
++ (UIColor *)white4 {
+    return [UIColor whiteColor];
+}
++ (UIColor *)white5 {
+    return [UIColor whiteColor];
 }
 %end
 %hook QTMColorGroup
@@ -321,16 +323,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -555,16 +557,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -790,16 +792,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -1024,16 +1026,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -1258,16 +1260,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -1492,16 +1494,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -1726,16 +1728,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
@@ -1960,16 +1962,16 @@ static BOOL pinkContrastMode() {
  }
 %end
 %hook YTColor
-- (UIColor *)white2 {
++ (UIColor *)white2 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white3 {
++ (UIColor *)white3 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white4 {
++ (UIColor *)white4 {
     return [UIColor whiteColor];
 }
-- (UIColor *)white5 {
++ (UIColor *)white5 {
     return [UIColor whiteColor];
 }
 %end
