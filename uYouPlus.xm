@@ -345,7 +345,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 - (BOOL)savedSettingShouldExpire { return NO; }
 %end
 
-// YTShortsProgress v1.0.3 - https://github.com/PoomSmart/YTShortsProgress/
+// YTShortsProgress - https://github.com/PoomSmart/YTShortsProgress/
 %hook YTReelPlayerViewController
 - (BOOL)shouldEnablePlayerBar { return YES; }
 - (BOOL)shouldAlwaysEnablePlayerBar { return YES; }
@@ -365,6 +365,11 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 %hook YTHotConfig
 - (BOOL)enablePlayerBarForVerticalVideoWhenControlsHiddenInFullscreen { return YES; }
+%end
+
+// YTNoTracking - https://github.com/arichorn/YTNoTracking/
+%hook YTICompactLinkRenderer
+- (BOOL)hasTrackingParams { return NO; }
 %end
 
 %hook YTIReelPlayerOverlayRenderer
