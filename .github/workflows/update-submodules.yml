@@ -16,11 +16,28 @@ jobs:
            git config --global user.email "actions@github.com"
            git config --global user.name "GitHub Actions"
 
+      - name: Add MrBeastify
+        run: |
+          git submodule add https://github.com/leminlimez/MrBeastify.git Tweaks/MrBeastify
+          git add .
+          git commit -m "added MrBeastify submodule"
+          git push origin
+
+      - name: Make .bundle files
+        run: |
+          cd Bundles
+          ln -s ../Tweaks/MrBeastify/layout/Library/Application\ Support/MrBeastify.bundle MrBeastify.bundle
+          git add .
+          git commit -m "Added submodule bundle"
+          git push origin
+
       - name: Update submodules
         run: |
           git submodule update --init --recursive --remote Tweaks/Alderis
           git add .
           git submodule update --init --recursive --remote Tweaks/DontEatMyContent
+          git add .
+          git submodule update --init --recursive --remote Tweaks/MrBeastify
           git add .
           git submodule update --init --recursive --remote Tweaks/PSHeader
           git add .
