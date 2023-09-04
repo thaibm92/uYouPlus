@@ -829,53 +829,59 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 
 // App Settings Overlay Options
-%group gDisableDontEatMyContentSection
+%group gDisableDontEatMyContentSection // DontEatMyContent
 %hook YTSettingsSectionItemManager
-- (void)updateDEMCSectionWithEntry:(id)arg1 {} // DontEatMyContent
+- (void)updateDEMCSectionWithEntry:(id)arg1 {
+    [arg1 setEnabled:NO];
+}
 %end
 %end
 
-%group gDisableReturnYouTubeDislikeSection
+%group gDisableReturnYouTubeDislikeSection // Return YouTube Dislike
 %hook YTSettingsSectionItemManager
-- (void)updateRYDSectionWithEntry:(id)arg1 {} // Return YouTube Dislike
+- (void)updateRYDSectionWithEntry:(id)arg1 {
+    [arg1 setEnabled:NO];
+}
 %end
 %end
 
-%group gDisableYouPiPSection
+%group gDisableYouPiPSection // YouPiP
 %hook YTSettingsSectionItemManager
-- (void)updateYouPiPSectionWithEntry:(id)arg1 {} // YouPiP
+- (void)updateYouPiPSectionWithEntry:(id)arg1 {
+    [arg1 setEnabled:NO];
+}
 %end
 %end
 
-%group gDisableTryNewFeaturesSection
+%group gDisableTryNewFeaturesSection  // Try New Features
 %hook YTSettingsSectionItemManager
-- (void)updatePremiumEarlyAccessSectionWithEntry:(id)arg1 {} // Try New Features
+- (void)updatePremiumEarlyAccessSectionWithEntry:(id)arg1 {}
 %end
 %end
 
-%group gDisableAutoplaySection
+%group gDisableAutoplaySection // Autoplay
 %hook YTSettingsSectionItemManager
-- (void)updateAutoplaySectionWithEntry:(id)arg1 {} // Autoplay
+- (void)updateAutoplaySectionWithEntry:(id)arg1 {}
 %end
 %end
 
-%group gDisableNotificationsSection
+%group gDisableNotificationsSection // Notifications
 %hook YTSettingsSectionItemManager
-- (void)updateNotificationSectionWithEntry:(id)arg1 {} // Notifications
+- (void)updateNotificationSectionWithEntry:(id)arg1 {}
 %end
 %end
 
-%group gDisableHistoryAndPrivacySection
+%group gDisableHistoryAndPrivacySection // History And Privacy
 %hook YTSettingsSectionItemManager
-- (void)updateHistoryAndPrivacySectionWithEntry:(id)arg1 {} // History And Privacy
-- (void)updateHistorySectionWithEntry:(id)arg1 {} // History
-- (void)updatePrivacySectionWithEntry:(id)arg1 {} // Privacy
+- (void)updateHistoryAndPrivacySectionWithEntry:(id)arg1 {}
+- (void)updateHistorySectionWithEntry:(id)arg1 {}
+- (void)updatePrivacySectionWithEntry:(id)arg1 {}
 %end
 %end
 
-%group gDisableLiveChatSection
+%group gDisableLiveChatSection // Live chat
 %hook YTSettingsSectionItemManager
-- (void)updateLiveChatSectionWithEntry:(id)arg1 {} // Live chat
+- (void)updateLiveChatSectionWithEntry:(id)arg1 {}
 %end
 %end
 
