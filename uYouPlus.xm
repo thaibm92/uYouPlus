@@ -824,7 +824,7 @@ static void replaceTab(YTIGuideResponse *response) {
 
 %hook YTShortsStartupCoordinator
 - (id)evaluateResumeToShorts { 
-    return IsEnabled(@"disableResumeToShorts") ? nil : %orig;
+    return IsEnabled(@"disableResumeToShorts_enabled") ? nil : %orig;
 }
 %end
 
