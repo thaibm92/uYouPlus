@@ -815,7 +815,7 @@ static void replaceTab(YTIGuideResponse *response) {
 
 %hook YTReelWatchRootViewController
 - (void)setPausedStateCarouselView {
-    if (IsEnabled(@"hideSubcriptions_enabled")) {}
+    if (IsEnabled(@"hideSubscriptions_enabled")) {}
     else { return %orig; }
 }
 %end
@@ -830,7 +830,7 @@ static void replaceTab(YTIGuideResponse *response) {
 %group gDisableDontEatMyContentSection // DontEatMyContent
 %hook YTSettingsSectionItemManager
 - (void)updateDEMCSectionWithEntry:(id)arg1 {
-    [arg1 setEnabled:NO];
+    [arg1 setEnabled:YES];
 }
 %end
 %end
@@ -838,7 +838,7 @@ static void replaceTab(YTIGuideResponse *response) {
 %group gDisableReturnYouTubeDislikeSection // Return YouTube Dislike
 %hook YTSettingsSectionItemManager
 - (void)updateRYDSectionWithEntry:(id)arg1 {
-    [arg1 setEnabled:NO];
+    [arg1 setEnabled:YES];
 }
 %end
 %end
@@ -846,12 +846,12 @@ static void replaceTab(YTIGuideResponse *response) {
 %group gDisableYouPiPSection // YouPiP
 %hook YTSettingsSectionItemManager
 - (void)updateYouPiPSectionWithEntry:(id)arg1 {
-    [arg1 setEnabled:NO];
+    [arg1 setEnabled:YES];
 }
 %end
 %end
 
-%group gDisableTryNewFeaturesSection  // Try New Features
+%group gDisableTryNewFeaturesSection // Try New Features
 %hook YTSettingsSectionItemManager
 - (void)updatePremiumEarlyAccessSectionWithEntry:(id)arg1 {}
 %end
