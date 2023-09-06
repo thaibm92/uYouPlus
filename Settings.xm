@@ -318,7 +318,7 @@ extern NSBundle *uYouPlusBundle();
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"hideSubcriptions_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideSubcriptions_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideSubscriptions_enabled"];
                     return YES;
                 }
                 settingItemId:0],
