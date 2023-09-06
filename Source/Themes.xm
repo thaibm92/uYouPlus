@@ -58,7 +58,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 
 %hook YTInnerTubeCollectionViewController
 - (UIColor *)backgroundColor:(NSInteger)pageStyle {
-    return pageStyle == 1 ? [UIColor originalColor] : %orig;
+    return pageStyle == 1 ? originalColor : %orig;
 }
 %end
 
@@ -77,7 +77,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 - (void)didMoveToWindow {
     %orig;
     if (isDarkMode() && [self.nextResponder isKindOfClass:%c(_ASDisplayView)]) {
-        self.superview.backgroundColor = [UIColor originalColor];
+        self.superview.backgroundColor = originalColor;
     }
 }
 %end
@@ -97,7 +97,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 - (void)viewDidLoad {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         %orig;
-        self.tableView.backgroundColor = [UIColor originalColor];
+        self.tableView.backgroundColor = originalColor;
     } else { return %orig; }
 }
 %end
@@ -106,7 +106,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 - (void)viewDidLoad {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         %orig;
-        self.view.backgroundColor = [UIColor originalColor];
+        self.view.backgroundColor = originalColor;
     } else { return %orig; }
 }
 %end
@@ -114,7 +114,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 // Search View
 %hook YTSearchBarView 
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
@@ -141,7 +141,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 
 %hook YTCreateCommentTextView
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 - (void)setTextColor:(UIColor *)color { // fix black text in #Shorts video's comment
     return isDarkMode() ? %orig([UIColor whiteColor]) : %orig;
@@ -152,7 +152,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 - (void)didMoveToWindow {
     %orig;
     if (isDarkMode()) {
-        self.subviews[2].backgroundColor = [UIColor blackColor];
+        self.subviews[2].backgroundColor = originalColor;
     }
 }
 %end
@@ -166,13 +166,13 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 // Live chat comment
 %hook YCHLiveChatActionPanelView 
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
 %hook YTEmojiTextView
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
@@ -180,21 +180,21 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 - (void)didMoveToWindow {
     %orig;
     if (isDarkMode()) {
-        self.subviews[1].backgroundColor = [UIColor originalColor];
+        self.subviews[1].backgroundColor = originalColor;
     }
 }
 %end
 
 %hook YTCollectionView 
 - (void)setBackgroundColor:(UIColor *)color { 
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
 //
 %hook YTBackstageCreateRepostDetailView
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
