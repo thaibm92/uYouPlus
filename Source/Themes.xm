@@ -121,7 +121,7 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 // History Search view
 %hook YTSearchBoxView 
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 
 }
 %end
@@ -129,13 +129,13 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 // Comment view
 %hook YTCommentView
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
 %hook YTCreateCommentAccessoryView
 - (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig([UIColor originalColor]) : %orig;
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
