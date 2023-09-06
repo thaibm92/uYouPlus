@@ -193,16 +193,16 @@
 
   - My official AltStore repo: https://therealfoxster.github.io/altsource-viewer/index.html?source=https://raw.githubusercontent.com/arichorn/arichorn.github.io/main/apps.json
 
-  - [Open in AltStore (v18.33.2-3.0.1)](https://tinyurl.com/264dckzf) - It will take a while to install because AltStore needs to download the IPA first.
+  - [Open in AltStore (v18.34.5-3.0.1)](https://tinyurl.com/mr3nrdz2) - It will take a while to install because AltStore needs to download the IPA first.
 
-- Version info: _(last update: Aug 25)_
+- Version info: _(last update: Sep 5)_
 
 <details>
   <summary>Expand ℹ️</summary>
 
 | **Tweaks/App** | **Developer** | **Version** | **Open source** |
 | - | - | :-: | :-:  |
-| **YouTube** | Google Inc | 18.33.2 | ✖︎ |
+| **YouTube** | Google Inc | 18.34.5 | ✖︎ |
 | [uYou](https://github.com/MiRO92/uYou-for-YouTube) | [MiRO92](https://twitter.com/miro92) | 3.0.1 | ✖︎ |
 | **Open in YouTube** | [CokePokes](https://github.com/CokePokes) | 1.2 | [✔︎](https://github.com/CokePokes/YoutubeExtensions) |
 | **iSponsorBlock** | [Galactic-Dev](https://github.com/Galactic-Dev) | 1.2 | [✔︎](https://github.com/Galactic-Dev/iSponsorBlock) |
@@ -226,7 +226,7 @@
 | **YouQuality** | [PoomSmart](https://twitter.com/poomsmart) | 1.1.4 | [✔︎](https://github.com/PoomSmart/YouQuality) |
 | **YTVideoOverlay** | [PoomSmart](https://twitter.com/poomsmart) | 1.1.0-2 | [✔︎](https://github.com/PoomSmart/YTVideoOverlay) |
 | **YTNoCommunityPosts** | [michael-winay](https://github.com/michael-winay) | 0.0.2 | [✔︎](https://github.com/michael-winay/YTNoCommunityPosts) |
-| **LowContrastMode** | [arichorn](https://github.com/arichorn) | 1.4.0 | [✔︎](https://github.com/arichorn/YTLowContrastMode) |
+| **LowContrastMode** | [arichorn](https://github.com/arichorn) | 1.4.2 | [✔︎](https://github.com/arichorn/YTLowContrastMode) |
 
 </details>
 
