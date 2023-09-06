@@ -1491,16 +1491,6 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide 'Play next in queue'")
-                titleDescription:LOC(@"Hides 'Play Next In Queue' option from the menu. App restart is required.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hidePlayNextInQueue_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hidePlayNextInQueue_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
 	    [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide YouTube Logo")
                 titleDescription:LOC(@"Toggle this to hide the YouTube Logo in the YouTube App.")
                 accessibilityIdentifier:nil
@@ -1540,7 +1530,17 @@ extern NSBundle *uYouPlusBundle();
                     return YES;
                 }
                 settingItemId:0],
-		
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"HIDE_PLAY_NEXT_IN_QUEUE")
+                titleDescription:LOC(@"HIDE_PLAY_NEXT_IN_QUEUE_DESC")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hidePlayNextInQueue_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hidePlayNextInQueue_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"IPHONE_LAYOUT")
                 titleDescription:LOC(@"IPHONE_LAYOUT_DESC")
                 accessibilityIdentifier:nil
