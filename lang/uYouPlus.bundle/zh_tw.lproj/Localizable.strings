@@ -8,7 +8,7 @@
 "AUTO_FULLSCREEN" = "自動全螢幕 (YTAutoFullScreen)";
 "AUTO_FULLSCREEN_DESC" = "自動全螢幕播放影片。";
 
-"DISABLE_DOUBLE_TAP_TO_SEEK" = "停用影片快轉與倒轉";
+"DISABLE_DOUBLE_TAP_TO_SEEK" = "Disable double tap to seek";
 "DISABLE_DOUBLE_TAP_TO_SEEK_DESC" = "";
 
 "SNAP_TO_CHAPTER" = "停用章節跳轉";
@@ -130,6 +130,9 @@
 
 "HIDE_CHIP_BAR" = "隱藏上層欄位";
 "HIDE_CHIP_BAR_DESC" = "隱藏主畫面上層欄位 (話題, 音樂, 遊戲...) 和訂閱對象動態 (所有影片, 繼續觀看...). 需要重新啟動應用程式。";
+
+"HIDE_PLAY_NEXT_IN_QUEUE" = "Hide \"Play next in queue\"";
+"HIDE_PLAY_NEXT_IN_QUEUE_DESC" = "Hide the premium \"Play next in queue\" option in video context menus";
 
 "NEW_MINIPLAYER_STYLE" = "迷你播放器 (BigYTMiniPlayer)";
 "NEW_MINIPLAYER_STYLE_DESC" = "需要重新啟動應用程式。";
