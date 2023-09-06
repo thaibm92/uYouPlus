@@ -85,15 +85,6 @@ static BOOL IsEnabled(NSString *key) {
 - (BOOL)disableAfmaIdfaCollection { return NO; }
 %end
 
-// Remove “Play next in queue” from the menu (@PoomSmart) - qnblackcat/uYouPlus#1138
-%group gHidePlayNextInQueue
-%hook YTMenuItemVisibilityHandler
-- (BOOL)shouldShowServiceItemRenderer:(YTIMenuConditionalServiceItemRenderer *)renderer {
-    return renderer.icon.iconType == 251 ? NO : %orig;
-}
-%end
-%end
-
 // Reposition "Create" Tab to the Center in the Pivot Bar - qnblackcat/uYouPlus#107
 /*
 static void repositionCreateTab(YTIGuideResponse *response) {
@@ -136,6 +127,13 @@ static void repositionCreateTab(YTIGuideResponse *response) {
         [artworkImageView.rightAnchor constraintEqualToAnchor:artworkImageView.superview.rightAnchor constant:-16].active = YES;
     }
     return imageView;
+}
+%end
+
+// Remove “Play next in queue” from the menu (@PoomSmart) - qnblackcat/uYouPlus#1138
+%hook YTMenuItemVisibilityHandler
+- (BOOL)shouldShowServiceItemRenderer:(YTIMenuConditionalServiceItemRenderer *)renderer {
+    return IsEnabled(@"hidePlayNextInQueue_enabled") && renderer.icon.iconType == 251 ? NO : %orig;
 }
 %end
 
@@ -993,9 +991,6 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"hideVideoPlayerShadowOverlayButtons_enabled")) {
         %init(gHideVideoPlayerShadowOverlayButtons);
     }
-    if (IsEnabled(@"hidePlayNextInQueue_enabled")) {
-        %init(gHidePlayNextInQueue);
-    }
     if (IsEnabled(@"disableHints_enabled")) {
         %init(gDisableHints);
     }
@@ -1065,6 +1060,9 @@ static void replaceTab(YTIGuideResponse *response) {
 
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
+    if (![allKeys containsObject:@"hidePlayNextInQueue_enabled"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hidePlayNextInQueue_enabled"];
+    }
     if (![allKeys containsObject:@"relatedVideosAtTheEndOfYTVideos"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"relatedVideosAtTheEndOfYTVideos"]; 
     }
