@@ -82,24 +82,6 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook YTCollectionView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
-%hook YTWatchView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
-%hook YTPageView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
 // Sub menu?
 %hook ELMView
 - (void)didMoveToWindow {
@@ -172,6 +154,24 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
     if (isDarkMode()) {
         self.subviews[2].backgroundColor = originalColor;
     }
+}
+%end
+
+%hook YTCollectionView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTWatchView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTPageView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
