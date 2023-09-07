@@ -157,12 +157,6 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook YTCollectionView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
 %hook YTWatchView
 - (void)setBackgroundColor:(UIColor *)color {
     return isDarkMode() ? %orig(originalColor) : %orig;
