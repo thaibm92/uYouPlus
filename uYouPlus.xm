@@ -634,64 +634,6 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
-%group gMrBeastify
-
-int imageCount = 0;
-
-NSArray *flippableText = @[@23, @37, @46];
-
-NSBundle *MrBeastifyBundle() {
-    static NSBundle *bundle = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *tweakBundlePath = [[NSBundle mainBundle] pathForResource:@"MrBeastify" ofType:@"bundle"];
-        if (tweakBundlePath)
-            bundle = [NSBundle bundleWithPath:tweakBundlePath];
-        else
-            bundle = [NSBundle bundleWithPath:ROOT_PATH_NS(@"/Library/Application Support/MrBeastify.bundle")];
-    });
-    return bundle;
-}
-
-NSString *MrBeastifyBundlePath() {
-    return [MrBeastifyBundle() bundlePath];
-}
-
-%hook _ASDisplayView
--(void)layoutSubviews {
-    %orig;
-
-    if (![self.accessibilityIdentifier isEqualToString:@"eml.timestamp"]) return;
-
-    for (UIView *subview in self.superview.superview.subviews) {
-        if (subview.frame.size.height < 90 || subview.frame.size.height > 300) continue;
-        if (subview.subviews.count != 1) continue;
-  
-        BOOL isFlipped = arc4random_uniform(4) == 1;
-
-        int imageNumber = 1 + arc4random() % (imageCount - 1);
-
-        NSString *filepath = [NSString stringWithFormat:@"%@/%d.png", MrBeastifyBundlePath(), imageNumber];
-        
-        if (isFlipped && [flippableText containsObject:[NSNumber numberWithInt:imageNumber]]) {
-            filepath = [NSString stringWithFormat:@"%@/%d_flipped.png", MrBeastifyBundlePath(), imageNumber];
-        }
-        UIImage *image = [[UIImage alloc] initWithContentsOfFile:ROOT_PATH_NS_VAR(filepath)];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = subview.frame; // same size as thumbnail
-        imageView.center = subview.center; // centre of thumbnail
-        if (isFlipped && ![flippableText containsObject:[NSNumber numberWithInt:imageNumber]]) {
-            imageView.transform = CGAffineTransformMakeScale(-1, 1);
-        }
-
-        [subview addSubview:imageView];
-
-        break;
-    }
-}
-%end
-%end
-
 # pragma mark - uYouPlus
 // Video Player Options
 // Skips content warning before playing *some videos - @PoomSmart
