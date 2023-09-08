@@ -1024,9 +1024,6 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"ytNoModernUI_enabled")) {
         %init(gYTNoModernUI);
     }
-    if (IsEnabled(@"mrBeastify_enabled")) {
-        %init(gMrBeastify);
-    }
     if (IsEnabled(@"disableDontEatMyContentSection_enabled")) {
         %init(gDisableDontEatMyContentSection);
     }
