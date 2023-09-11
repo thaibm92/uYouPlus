@@ -10,9 +10,11 @@ static int contrastMode() {
 static BOOL lowContrastMode() {
     return IsEnabled(@"lowContrastMode_enabled") && contrastMode() == 0;
 }
+/*
 static BOOL customContrastMode() {
     return IsEnabled(@"lowContrastMode_enabled") && contrastMode() == 1;
 }
+*/
 
 UIColor *lcmHexColor;
 
@@ -223,6 +225,7 @@ UIColor *lcmHexColor;
 %end
 %end
 
+/*
 %group gCustomContrastMode // Custom Contrast Mode (Hex Color)
 %hook UIColor
 + (UIColor *)whiteColor {
@@ -429,6 +432,7 @@ UIColor *lcmHexColor;
 }
 %end
 %end
+*/
 
 # pragma mark - ctor
 %ctor {
@@ -436,7 +440,9 @@ UIColor *lcmHexColor;
     if (lowContrastMode()) {
         %init(gLowContrastMode);
     }
+/*
     if (customContrastMode()) {
         %init(gCustomContrastMode);
     }
+*/
 }
