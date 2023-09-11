@@ -433,8 +433,10 @@ extern NSBundle *uYouPlusBundle();
         accessibilityIdentifier:nil
         detailTextBlock:^NSString *() {
             switch (contrastMode()) {
+/*
                 case 1:
                     return LOC(@"Hex Color");
+*/
                 case 0:
                 default:
                     return LOC(@"Default");
@@ -446,12 +448,14 @@ extern NSBundle *uYouPlusBundle();
                     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lcm"];
                     [settingsViewController reloadData];
                     return YES;
-                }],
+                }]
+/*
                 [YTSettingsSectionItemClass checkmarkItemWithTitle:LOC(@"Hex Color") titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
                     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"lcm"];
                     [settingsViewController reloadData];
                     return YES;
                 }]
+*/
             ];
             YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"Low Contrast Mode") pickerSectionTitle:nil rows:rows selectedItemIndex:contrastMode() parentResponder:[self parentResponder]];
             [settingsViewController pushViewController:picker];
