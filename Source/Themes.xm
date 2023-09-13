@@ -157,21 +157,14 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook YTWatchView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
-%hook YTPageView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
-%hook YTPrivacyTosFooterView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
+%hook YTAsyncCollectionView
+- (void)layoutSubviews {
+    %orig();
+    if ([self.nextResponder isKindOfClass:NSClassFromString(@"YTWatchNextResultsViewController")]) {
+        if (isDarkMode()) {
+            self.subviews[0].subviews[0].backgroundColor = originalColor;
+        }
+    }
 }
 %end
 
@@ -188,13 +181,16 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook YTEmojiTextView
+%hook YCHLiveChatActionPanelView
 - (void)setBackgroundColor:(UIColor *)color {
     return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
 
 %hook YCHLiveChatView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
 - (void)didMoveToWindow {
     %orig;
     if (isDarkMode()) {
@@ -203,8 +199,56 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
+%hook YTEmojiTextView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTAppView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
 %hook YTCollectionView 
 - (void)setBackgroundColor:(UIColor *)color { 
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTChannelListSubMenuView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTChannelSubMenuView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTWrapperSplitView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTPageView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTWatchView
+- (void)setBackgroundColor:(UIColor *)color {
+    return isDarkMode() ? %orig(originalColor) : %orig;
+}
+%end
+
+%hook YTPrivacyTosFooterView
+- (void)setBackgroundColor:(UIColor *)color {
     return isDarkMode() ? %orig(originalColor) : %orig;
 }
 %end
