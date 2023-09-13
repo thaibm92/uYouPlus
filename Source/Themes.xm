@@ -181,12 +181,6 @@ UIColor *originalColor = [UIColor colorWithRed:0.129 green:0.129 blue:0.129 alph
 }
 %end
 
-%hook YCHLiveChatActionPanelView
-- (void)setBackgroundColor:(UIColor *)color {
-    return isDarkMode() ? %orig(originalColor) : %orig;
-}
-%end
-
 %hook YCHLiveChatView
 - (void)setBackgroundColor:(UIColor *)color {
     return isDarkMode() ? %orig(originalColor) : %orig;
