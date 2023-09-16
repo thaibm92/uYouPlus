@@ -38,9 +38,6 @@
 	path = Tweaks/YTABConfig
 	url = https://github.com/PoomSmart/YTABConfig.git
 	branch = main
-[submodule "Tweaks/FLEXing"]
-	path = Tweaks/FLEXing
-	url = https://github.com/PoomSmart/FLEXing
 [submodule "Tweaks/Alderis"]
 	path = Tweaks/Alderis
 	url = https://github.com/hbang/Alderis.git
