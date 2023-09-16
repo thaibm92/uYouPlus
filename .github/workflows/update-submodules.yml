@@ -14,13 +14,7 @@ jobs:
       - name: Set up Git
         run: |
            git config --global user.email "actions@github.com"
-           git config --global user.name "GitHub Actions"
-
-      - name: Change FLEXing (1)
-        run: |
-          git submodule add https://github.com/PoomSmart/FLEXing Tweaks/FLEXing
-          git commit -m "Re-Added FLEXing"
-          git push
+           git config --global user.name "GitHub Actions
 
       - name: Update submodules
         run: |
