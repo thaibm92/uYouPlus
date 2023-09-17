@@ -849,14 +849,6 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
-%group gDisableYouPiPSection // YouPiP
-%hook YTSettingsSectionItemManager
-- (void)updateYouPiPSectionWithEntry:(id)arg1 {
-    [arg1 setEnabled:YES];
-}
-%end
-%end
-
 %group gDisableYouPiPSection
 %hook YTSettingsSectionItemManager
 - (void)updateYouPiPSectionWithEntry:(id)arg1 { // YouPiP
