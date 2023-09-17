@@ -827,6 +827,12 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 
 // App Settings Overlay Options
+%group gDisableAccountSection
+%hook YTSettingsSectionItemManager
+- (void)updateAccountSwitcherSectionWithEntry:(id)arg1 {} // Account
+%end
+%end
+
 %group gDisableDontEatMyContentSection // DontEatMyContent
 %hook YTSettingsSectionItemManager
 - (void)updateDEMCSectionWithEntry:(id)arg1 {
@@ -851,35 +857,63 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
-%group gDisableTryNewFeaturesSection // Try New Features
+%group gDisableYouPiPSection
 %hook YTSettingsSectionItemManager
-- (void)updatePremiumEarlyAccessSectionWithEntry:(id)arg1 {}
+- (void)updateYouPiPSectionWithEntry:(id)arg1 { // YouPiP
+    %orig;
+    NSMutableArray *sectionItems = [self valueForKey:@"_sectionItems"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", @"YouPiP"];
+    NSArray *itemsToRemove = [sectionItems filteredArrayUsingPredicate:predicate];
+    [sectionItems removeObjectsInArray:itemsToRemove];
+}
 %end
 %end
 
-%group gDisableAutoplaySection // Autoplay
+%group gDisableAutoplaySection
 %hook YTSettingsSectionItemManager
-- (void)updateAutoplaySectionWithEntry:(id)arg1 {}
+- (void)updateAutoplaySectionWithEntry:(id)arg1 {} // Autoplay
 %end
 %end
 
-%group gDisableNotificationsSection // Notifications
+%group gDisableTryNewFeaturesSection
 %hook YTSettingsSectionItemManager
-- (void)updateNotificationSectionWithEntry:(id)arg1 {}
+- (void)updatePremiumEarlyAccessSectionWithEntry:(id)arg1 {} // Try new features
 %end
 %end
 
-%group gDisableHistoryAndPrivacySection // History And Privacy
+%group gDisableVideoQualityPreferencesSection
 %hook YTSettingsSectionItemManager
-- (void)updateHistoryAndPrivacySectionWithEntry:(id)arg1 {}
-- (void)updateHistorySectionWithEntry:(id)arg1 {}
-- (void)updatePrivacySectionWithEntry:(id)arg1 {}
+- (void)updateVideoQualitySectionWithEntry:(id)arg1 {} // Video quality preferences
 %end
 %end
 
-%group gDisableLiveChatSection // Live chat
+%group gDisableNotificationsSection
 %hook YTSettingsSectionItemManager
-- (void)updateLiveChatSectionWithEntry:(id)arg1 {}
+- (void)updateNotificationSectionWithEntry:(id)arg1 {} // Notifications
+%end
+%end
+
+%group gDisableManageAllHistorySection
+%hook YTSettingsSectionItemManager
+- (void)updateHistorySectionWithEntry:(id)arg1 {} // Manage all history
+%end
+%end
+
+%group gDisableYourDataInYouTubeSection
+%hook YTSettingsSectionItemManager
+- (void)updateYourDataSectionWithEntry:(id)arg1 {} // Your data in YouTube
+%end
+%end
+
+%group gDisablePrivacySection
+%hook YTSettingsSectionItemManager
+- (void)updatePrivacySectionWithEntry:(id)arg1 {} // Privacy
+%end
+%end
+
+%group gDisableLiveChatSection
+%hook YTSettingsSectionItemManager
+- (void)updateLiveChatSectionWithEntry:(id)arg1 {} // Live chat
 %end
 %end
 
@@ -1024,6 +1058,9 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"ytNoModernUI_enabled")) {
         %init(gYTNoModernUI);
     }
+    if (IsEnabled(@"disableAccountSection_enabled")) {
+        %init(gDisableAccountSection);
+    }
     if (IsEnabled(@"disableDontEatMyContentSection_enabled")) {
         %init(gDisableDontEatMyContentSection);
     }
@@ -1033,17 +1070,26 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"disableYouPiPSection_enabled")) {
         %init(gDisableYouPiPSection);
     }
+    if (IsEnabled(@"disableAutoplaySection_enabled")) {
+        %init(gDisableAutoplaySection);
+    }
     if (IsEnabled(@"disableTryNewFeaturesSection_enabled")) {
         %init(gDisableTryNewFeaturesSection);
     }
-    if (IsEnabled(@"disableAutoplaySection_enabled")) {
-        %init(gDisableAutoplaySection);
+    if (IsEnabled(@"disableVideoQualityPreferencesSection_enabled")) {
+        %init(gDisableVideoQualityPreferencesSection);
     }
     if (IsEnabled(@"disableNotificationsSection_enabled")) {
         %init(gDisableNotificationsSection);
     }
-    if (IsEnabled(@"disableHistoryAndPrivacySection_enabled")) {
-        %init(gDisableHistoryAndPrivacySection);
+    if (IsEnabled(@"disableManageAllHistorySection_enabled")) {
+        %init(gDisableManageAllHistorySection);
+    }
+    if (IsEnabled(@"disableYourDataInYouTubeSection_enabled")) {
+        %init(gDisableYourDataInYouTubeSection);
+    }
+    if (IsEnabled(@"disablePrivacySection_enabled")) {
+        %init(gDisablePrivacySection);
     }
     if (IsEnabled(@"disableLiveChatSection_enabled")) {
         %init(gDisableLiveChatSection);
