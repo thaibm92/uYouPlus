@@ -1495,6 +1495,16 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - Miscellaneous
     YTSettingsSectionItem *miscellaneousGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"MISCELLANEOUS") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
+                titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"ytStartupAnimation_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"ytStartupAnimation_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"CAST_CONFIRM")
                 titleDescription:LOC(@"CAST_CONFIRM_DESC")
                 accessibilityIdentifier:nil
@@ -1511,16 +1521,6 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"disableHints_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableHints_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
-                titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"ytStartupAnimation_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"ytStartupAnimation_enabled"];
                     return YES;
                 }
                 settingItemId:0],
@@ -1581,6 +1581,16 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"hidePlayNextInQueue_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hidePlayNextInQueue_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide all videos under player")
+                titleDescription:LOC(@"Hides all videos below the player, leaving only the video info and comments section.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"noRelatedWatchNexts_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"noRelatedWatchNexts_enabled"];
                     return YES;
                 }
                 settingItemId:0],
