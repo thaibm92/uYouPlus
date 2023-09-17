@@ -342,6 +342,16 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - App Settings Overlay Options
     YTSettingsSectionItem *appSettingsOverlayGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"App Settings Overlay Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Account` Section")
+                titleDescription:LOC(@"App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"disableAccountSection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableAccountSection_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `DontEatMyContent` Section")
                 titleDescription:LOC(@"App restart is required.")
                 accessibilityIdentifier:nil
@@ -372,6 +382,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Autoplay` Section")
+                titleDescription:LOC(@"App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"disableAutoplaySection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableAutoplaySection_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Try New Features` Section")
                 titleDescription:LOC(@"App restart is required.")
                 accessibilityIdentifier:nil
@@ -382,12 +402,12 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Autoplay` Section")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Video quality preferences` Section")
                 titleDescription:LOC(@"App restart is required.")
                 accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"disableAutoplaySection_enabled")
+                switchOn:IsEnabled(@"disableVideoQualityPreferencesSection_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableAutoplaySection_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableVideoQualityPreferencesSection_enabled"];
                     return YES;
                 }
                 settingItemId:0],
@@ -402,12 +422,32 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
                 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `History And Privacy` Section")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Manage all history` Section")
                 titleDescription:LOC(@"App restart is required.")
                 accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"disableHistoryAndPrivacySection_enabled")
+                switchOn:IsEnabled(@"disableManageAllHistorySection_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableHistoryAndPrivacySection_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableManageAllHistorySection_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Your data in YouTube` Section")
+                titleDescription:LOC(@"App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"disableYourDataInYouTubeSection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableYourDataInYouTubeSection_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Privacy` Section")
+                titleDescription:LOC(@"App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"disablePrivacySection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disablePrivacySection_enabled"];
                     return YES;
                 }
                 settingItemId:0],
