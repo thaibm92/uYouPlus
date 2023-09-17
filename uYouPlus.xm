@@ -502,6 +502,15 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %end
 %end
 
+%group gNoRelatedWatchNexts
+%hook YTWatchNextResultsViewController
+- (void)setVisibleSections:(NSInteger)arg1 {
+    arg1 = 1;
+    %orig(arg1);
+}
+%end
+%end
+
 # pragma mark - Hide Notification Button && SponsorBlock Button
 %hook YTRightNavigationButtons
 - (void)layoutSubviews {
@@ -1046,6 +1055,9 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"hideHeatwaves_enabled")) {
         %init(gHideHeatwaves);
+    }
+    if (IsEnabled(@"noRelatedWatchNexts_enabled")) {
+        %init(gNoRelatedWatchNexts);
     }
     if (IsEnabled(@"ytNoModernUI_enabled")) {
         %init(gYTNoModernUI);
