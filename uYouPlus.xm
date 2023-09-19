@@ -130,13 +130,6 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-// Remove “Play next in queue” from the menu (@PoomSmart) - qnblackcat/uYouPlus#1138
-%hook YTMenuItemVisibilityHandler
-- (BOOL)shouldShowServiceItemRenderer:(YTIMenuConditionalServiceItemRenderer *)renderer {
-    return IsEnabled(@"hidePlayNextInQueue_enabled") && renderer.icon.iconType == 251 ? NO : %orig;
-}
-%end
-
 # pragma mark - Tweaks
 // IAmYouTube - https://github.com/PoomSmart/IAmYouTube/
 %hook YTVersionUtils
@@ -199,7 +192,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
         return YT_NAME;
     return %orig;
 }
-// Fix Google Sign in by @PoomSmart and @level3tjg (qnblackcat/uYouPlus#684)
+// Fix Google Sign in by @PoomSmart & @level3tjg (qnblackcat/uYouPlus#684)
 - (NSDictionary *)infoDictionary {
     NSMutableDictionary *info = %orig.mutableCopy;
     NSString *altBundleIdentifier = info[@"ALTBundleIdentifier"];
@@ -208,7 +201,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-// Fix login for YouTube 18.13.2 and higher @BandarHL
+// Fix login for YouTube 18.13.2 and higher - @BandarHL
 %hook SSOKeychainHelper
 + (NSString *)accessGroup {
     return accessGroupID();
@@ -258,39 +251,9 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     %orig;
 }
 %end
- 
-// YTCastConfirm: https://github.com/JamieBerghmans/YTCastConfirm
-%hook MDXPlaybackRouteButtonController
-- (void)didPressButton:(id)arg1 {
-    if (IsEnabled(@"castConfirm_enabled")) {
-        NSBundle *tweakBundle = uYouPlusBundle();
-        YTAlertView *alertView = [%c(YTAlertView) confirmationDialogWithAction:^{
-            %orig;
-        } actionTitle:LOC(@"MSG_YES")];
-        alertView.title = LOC(@"CASTING");
-        alertView.subtitle = LOC(@"MSG_ARE_YOU_SURE");
-        [alertView show];
-	} else {
-    return %orig;
-    }
-}
-%end
-
-// %hook YTSectionListViewController
-// - (void)loadWithModel:(YTISectionListRenderer *)model {
-//     NSMutableArray <YTISectionListSupportedRenderers *> *contentsArray = model.contentsArray;
-//     NSIndexSet *removeIndexes = [contentsArray indexesOfObjectsPassingTest:^BOOL(YTISectionListSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
-//         YTIItemSectionRenderer *sectionRenderer = renderers.itemSectionRenderer;
-//         YTIItemSectionSupportedRenderers *firstObject = [sectionRenderer.contentsArray firstObject];
-//         return firstObject.hasPromotedVideoRenderer || firstObject.hasCompactPromotedVideoRenderer || firstObject.hasPromotedVideoInlineMutedRenderer;
-//     }];
-//     [contentsArray removeObjectsAtIndexes:removeIndexes];
-//     %orig;
-// }
-// %end
 
 // YTClassicVideoQuality: https://github.com/PoomSmart/YTClassicVideoQuality
-%hook YTIMediaQualitySettingsHotConfig // (works for YouTube 18.19.1-latest)
+%hook YTIMediaQualitySettingsHotConfig
 
 %new(B@:) - (BOOL)enableQuickMenuVideoQualitySettings { return NO; }
 
@@ -502,15 +465,6 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %end
 %end
 
-%group gNoRelatedWatchNexts
-%hook YTWatchNextResultsViewController
-- (void)setVisibleSections:(NSInteger)arg1 {
-    arg1 = 1;
-    %orig(arg1);
-}
-%end
-%end
-
 # pragma mark - Hide Notification Button && SponsorBlock Button
 %hook YTRightNavigationButtons
 - (void)layoutSubviews {
@@ -555,41 +509,6 @@ static void replaceTab(YTIGuideResponse *response) {
 - (void)handleResponse:(YTIGuideResponse *)response error:(id)error completion:(id)completion {
     replaceTab(response);
     %orig(response, error, completion);
-}
-%end
-%end
-
-// Hide Subscriptions Notification Badge
-%group gHideSubscriptionsNotificationBadge
-%hook YTPivotBarIndicatorView
-- (void)didMoveToWindow {
-    [self setHidden:YES];
-    %orig();
-}
-%end
-%end
-
-// BigYTMiniPlayer: https://github.com/Galactic-Dev/BigYTMiniPlayer
-%group Main
-%hook YTWatchMiniBarView
-- (void)setWatchMiniPlayerLayout:(int)arg1 {
-    %orig(1);
-}
-- (int)watchMiniPlayerLayout {
-    return 1;
-}
-- (void)layoutSubviews {
-    %orig;
-    self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - self.frame.size.width), self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-}
-%end
-
-%hook YTMainAppVideoPlayerOverlayView
-- (BOOL)isUserInteractionEnabled {
-    if([[self _viewControllerForAncestor].parentViewController.parentViewController isKindOfClass:%c(YTWatchMiniBarViewController)]) {
-        return NO;
-    }
-        return %orig;
 }
 %end
 %end
@@ -650,7 +569,7 @@ static void replaceTab(YTIGuideResponse *response) {
 - (void)showConfirmAlert { [self confirmAlertDidPressConfirm]; }
 %end
 
-// Portrait Fullscreen by Dayanch96
+// Portrait Fullscreen - @Dayanch96
 %group gPortraitFullscreen
 %hook YTWatchViewController
 - (unsigned long long)allowedFullScreenOrientations {
@@ -919,6 +838,43 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 
 // Miscellaneous
+// YT startup animation
+%hook YTColdConfig
+- (BOOL)mainAppCoreClientIosEnableStartupAnimation {
+    return IsEnabled(@"ytStartupAnimation_enabled") ? YES : NO;
+}
+%end
+
+// YTCastConfirm: https://github.com/JamieBerghmans/YTCastConfirm
+%hook MDXPlaybackRouteButtonController
+- (void)didPressButton:(id)arg1 {
+    if (IsEnabled(@"castConfirm_enabled")) {
+        NSBundle *tweakBundle = uYouPlusBundle();
+        YTAlertView *alertView = [%c(YTAlertView) confirmationDialogWithAction:^{
+            %orig;
+        } actionTitle:LOC(@"MSG_YES")];
+        alertView.title = LOC(@"CASTING");
+        alertView.subtitle = LOC(@"MSG_ARE_YOU_SURE");
+        [alertView show];
+	} else {
+    return %orig;
+    }
+}
+%end
+
+// %hook YTSectionListViewController
+// - (void)loadWithModel:(YTISectionListRenderer *)model {
+//     NSMutableArray <YTISectionListSupportedRenderers *> *contentsArray = model.contentsArray;
+//     NSIndexSet *removeIndexes = [contentsArray indexesOfObjectsPassingTest:^BOOL(YTISectionListSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+//         YTIItemSectionRenderer *sectionRenderer = renderers.itemSectionRenderer;
+//         YTIItemSectionSupportedRenderers *firstObject = [sectionRenderer.contentsArray firstObject];
+//         return firstObject.hasPromotedVideoRenderer || firstObject.hasCompactPromotedVideoRenderer || firstObject.hasPromotedVideoInlineMutedRenderer;
+//     }];
+//     [contentsArray removeObjectsAtIndexes:removeIndexes];
+//     %orig;
+// }
+// %end
+
 // Disable hints - https://github.com/LillieH001/YouTube-Reborn/blob/v4/
 %group gDisableHints
 %hook YTSettings
@@ -969,6 +925,40 @@ static void replaceTab(YTIGuideResponse *response) {
 // %end
 %end
 
+// Remove “Play next in queue” from the menu (@PoomSmart) - qnblackcat/uYouPlus#1138
+%hook YTMenuItemVisibilityHandler
+- (BOOL)shouldShowServiceItemRenderer:(YTIMenuConditionalServiceItemRenderer *)renderer {
+    return IsEnabled(@"hidePlayNextInQueue_enabled") && renderer.icon.iconType == 251 ? NO : %orig;
+}
+%end
+
+// Hide the Comment Section under the Video Player - @arichorn
+%group gNoCommentSection
+%hook YTIElementRenderer
+- (NSData *)elementData {
+    NSArray *commentSectionIDs = @[@"id.ui.comments_entry_point_teaser", @"id.ui.comments_entry_point_simplebox", @"id.ui_video_metadata_carousel", @"id.ui.carousel_header"];
+    NSString *description = [self description];
+    for (NSString *commentSectionID in commentSectionIDs) {
+        if ([description containsString:commentSectionID]) {
+            return [NSData data];
+        }
+    } 
+    return %orig;
+}
+%end
+%end
+
+// Hide the Videos under the Video Player - @Dayanch96
+%group gNoRelatedWatchNexts
+%hook YTWatchNextResultsViewController
+- (void)setVisibleSections:(NSInteger)arg1 {
+    arg1 = 1;
+    %orig(arg1);
+}
+%end
+%end
+
+// iPhone Layout - @LillieH1000 & @arichorn
 %group giPhoneLayout
 %hook UIDevice
 - (long long)userInterfaceIdiom {
@@ -992,11 +982,39 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
-// YT startup animation
-%hook YTColdConfig
-- (BOOL)mainAppCoreClientIosEnableStartupAnimation {
-    return IsEnabled(@"ytStartupAnimation_enabled") ? YES : NO;
+// BigYTMiniPlayer: https://github.com/Galactic-Dev/BigYTMiniPlayer
+%group Main
+%hook YTWatchMiniBarView
+- (void)setWatchMiniPlayerLayout:(int)arg1 {
+    %orig(1);
 }
+- (int)watchMiniPlayerLayout {
+    return 1;
+}
+- (void)layoutSubviews {
+    %orig;
+    self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - self.frame.size.width), self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+}
+%end
+
+%hook YTMainAppVideoPlayerOverlayView
+- (BOOL)isUserInteractionEnabled {
+    if([[self _viewControllerForAncestor].parentViewController.parentViewController isKindOfClass:%c(YTWatchMiniBarViewController)]) {
+        return NO;
+    }
+        return %orig;
+}
+%end
+%end
+
+// Hide Subscriptions Notification Badge - @arichorn
+%group gHideSubscriptionsNotificationBadge
+%hook YTPivotBarIndicatorView
+- (void)didMoveToWindow {
+    [self setHidden:YES];
+    %orig();
+}
+%end
 %end
 
 # pragma mark - ctor
@@ -1055,6 +1073,9 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"hideHeatwaves_enabled")) {
         %init(gHideHeatwaves);
+    }
+    if (IsEnabled(@"noCommentSection_enabled")) {
+        %init(gNoCommentSection);
     }
     if (IsEnabled(@"noRelatedWatchNexts_enabled")) {
         %init(gNoRelatedWatchNexts);
