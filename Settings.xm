@@ -1585,8 +1585,18 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
+                titleDescription:LOC(@"Hides the Comment Section below the player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"noCommentSection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"noCommentSection_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide all videos under player")
-                titleDescription:LOC(@"Hides all videos below the player, leaving only the video info and comments section.")
+                titleDescription:LOC(@"Hides all videos below the player.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"noRelatedWatchNexts_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
