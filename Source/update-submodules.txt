@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3.6.0
+        uses: actions/checkout@v4.0.0
 
       - name: Set up Git
         run: |
@@ -20,6 +20,7 @@ jobs:
 
       - name: Add uYouPlusExtra submodules
         run: |
+          git submodule add https://github.com/PoomSmart/FLEXing.git Tweaks/FLEXing
           git submodule add https://github.com/leminlimez/MrBeastify.git Tweaks/MrBeastify
           git submodule add https://github.com/michael-winay/YTNoCommunityPosts.git Tweaks/YTNoCommunityPosts
 #         git submodule add https://github.com/arichorn/YTHoldForSpeed.git Tweaks/YTHoldForSpeed
