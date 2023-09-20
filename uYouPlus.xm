@@ -738,6 +738,12 @@ static void replaceTab(YTIGuideResponse *response) {
     if ((IsEnabled(@"hideBuySuperThanks_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.elements.components.suggested_action"])) { 
         self.hidden = YES; 
     }
+
+// Hide the Download Button under the Video Player - @arichorn
+    if ((IsEnabled(@"hideAddToOfflineButton_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.add_to_offline.button"])) {
+        self.hidden = YES;
+    }
+
 // Hide the Comment Section under the Video Player - @arichorn
     if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
         self.hidden = YES;
