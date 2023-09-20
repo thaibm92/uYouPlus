@@ -1186,8 +1186,8 @@ static BOOL version138() {
 %end
 %end
 
-%group gVersion125
-%hook YTVersionUtils // 125
+%group gVersion126
+%hook YTVersionUtils // 126
 + (NSString *)appVersion { return @"16.16.3"; }
 %end
 %end
