@@ -933,19 +933,13 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 
 // Hide the Comment Section under the Video Player - @arichorn
-%group gNoCommentSection
-%hook YTIElementRenderer
-- (NSData *)elementData {
-    NSArray *commentSectionIDs = @[@"id.ui.comments_entry_point_teaser", @"id.ui.comments_entry_point_simplebox", @"id.ui_video_metadata_carousel", @"id.ui.carousel_header"];
-    NSString *description = [self description];
-    for (NSString *commentSectionID in commentSectionIDs) {
-        if ([description containsString:commentSectionID]) {
-            return [NSData data];
-        }
-    } 
-    return %orig;
+%hook _ASDisplayView
+- (void)didMoveToWindow {
+    %orig;
+    if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui_video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
+        self.hidden = YES;
+    }
 }
-%end
 %end
 
 // Hide the Videos under the Video Player - @Dayanch96
@@ -1073,9 +1067,6 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"hideHeatwaves_enabled")) {
         %init(gHideHeatwaves);
-    }
-    if (IsEnabled(@"noCommentSection_enabled")) {
-        %init(gNoCommentSection);
     }
     if (IsEnabled(@"noRelatedWatchNexts_enabled")) {
         %init(gNoRelatedWatchNexts);
