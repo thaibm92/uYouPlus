@@ -757,7 +757,7 @@ extern NSBundle *uYouPlusBundle();
                     return @"v16.17.4";
                 case 125:
                     return @"v16.16.4";
-                case 126
+                case 126:
                     return @"v16.16.3";
                 case 127:
                     return @"v16.15.4";
