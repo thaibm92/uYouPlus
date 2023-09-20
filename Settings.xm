@@ -1644,9 +1644,9 @@ extern NSBundle *uYouPlusBundle();
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
                 titleDescription:LOC(@"Hides the Comment Section below the player.")
                 accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"noCommentSection_enabled")
+                switchOn:IsEnabled(@"hideCommentSection_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"noCommentSection_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideCommentSection_enabled"];
                     return YES;
                 }
                 settingItemId:0],
