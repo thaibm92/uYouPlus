@@ -1641,6 +1641,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
+                titleDescription:LOC(@"Hides the Download Button below the player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideAddToOfflineButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideAddToOfflineButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
                 titleDescription:LOC(@"Hides the Comment Section below the player.")
                 accessibilityIdentifier:nil
