@@ -26,7 +26,22 @@ UIColor *lcmHexColor;
 + (UIColor *)lightTextColor {
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
 }
++ (UIColor *)lightGrayColor {
+         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
+}
++ (UIColor *)ychGrey7 {
+         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
+}
++ (UIColor *)skt_chipBackgroundColor {
+         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
+}
 + (UIColor *)placeholderTextColor {
+         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
+}
++ (UIColor *)systemLightGrayColor {
+         return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
+}
++ (UIColor *)systemExtraLightGrayColor {
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
 }
 + (UIColor *)labelColor {
@@ -82,6 +97,9 @@ UIColor *lcmHexColor;
     return [UIColor whiteColor];
 }
 + (UIColor *)white5 {
+    return [UIColor whiteColor];
+}
++ (UIColor *)grey1 {
     return [UIColor whiteColor];
 }
 %end
