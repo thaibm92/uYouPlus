@@ -71,17 +71,17 @@ jobs:
       
       - name: Caching
         id: SDK
-        uses: actions/cache@v3.3.1
+        uses: actions/cache@v3.3.2
         env:
-          cache-name: iOS-16.2-SDK
+          cache-name: iOS-17.0-SDK
         with:
           path: theos/sdks/
           key: ${{ env.cache-name }}
       
-      - name: Download iOS 16.2 SDK
+      - name: Download iOS 17.0 SDK
         if: steps.SDK.outputs.cache-hit != 'true'
         run: |
-          svn checkout -q https://github.com/arichorn/sdks/trunk/iPhoneOS16.2.sdk
+          svn checkout -q https://github.com/arichorn/sdks/trunk/iPhoneOS17.0.sdk
           mv *.sdk $THEOS/sdks
         env:
           THEOS: ${{ github.workspace }}/theos
@@ -129,7 +129,7 @@ jobs:
           APP_NAME: ${{ inputs.app_name }}
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         env:
           UYOU_VERSION: ${{ inputs.uyou_version }}
           YOUTUBE_VERSION: ${{ inputs.youtube_version }}
