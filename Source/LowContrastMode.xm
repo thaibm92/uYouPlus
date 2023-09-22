@@ -120,55 +120,55 @@ UIColor *lcmHexColor;
 %end
 %hook QTMColorGroup
 - (UIColor *)tint100 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint300 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint500 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint700 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accent200 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accent400 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)brightAccentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)regularColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)darkerColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)lightBodyTextColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnRegularColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnLighterColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnDarkerColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnAccentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)buttonBackgroundColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 %end
 %hook YTQTMButton
@@ -382,55 +382,55 @@ UIColor *lcmHexColor;
 %end
 %hook QTMColorGroup
 - (UIColor *)tint100 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint300 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint500 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)tint700 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accent200 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accent400 {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)accentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)brightAccentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)regularColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)darkerColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)lightBodyTextColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnRegularColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnLighterColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnDarkerColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)bodyTextColorOnAccentColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 - (UIColor *)buttonBackgroundColor {
-    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+    return [UIColor whiteColor];
 }
 %end
 %hook YTQTMButton
