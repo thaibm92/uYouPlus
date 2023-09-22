@@ -18,7 +18,7 @@ static BOOL customContrastMode() {
 
 UIColor *lcmHexColor;
 
-%group gLowContrastMode // Low Contrast Mode v1.4.2 (Compatible with only YouTube v16.05.7-v17.38.10)
+%group gLowContrastMode // Low Contrast Mode v1.5.0 (Compatible with only YouTube v16.05.7-v17.38.10)
 %hook UIColor
 + (UIColor *)whiteColor { // Dark Theme Color
          return [UIColor colorWithRed: 0.56 green: 0.56 blue: 0.56 alpha: 1.00];
@@ -85,8 +85,20 @@ UIColor *lcmHexColor;
 - (UIColor *)overlayIconActiveOther {
     return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
+- (UIColor *)overlayIconInactive {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.7] : %orig;
+}
+- (UIColor *)overlayIconDisabled {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.3] : %orig;
+}
+- (UIColor *)overlayFilledButtonActive {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.2] : %orig;
+}
 %end
 %hook YTColor
++ (BOOL)darkerPaletteTextColorEnabled {
+    return NO;
+}
 + (UIColor *)white2 {
     return [UIColor whiteColor];
 }
@@ -102,37 +114,61 @@ UIColor *lcmHexColor;
 + (UIColor *)grey1 {
     return [UIColor whiteColor];
 }
++ (UIColor *)grey2 {
+    return [UIColor whiteColor];
+}
 %end
 %hook QTMColorGroup
 - (UIColor *)tint100 {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)tint300 {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)tint500 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)tint700 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accent200 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accent400 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)brightAccentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)regularColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)darkerColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)bodyTextColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnLighterColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnRegularColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnDarkerColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnAccentColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnOnBrightAccentColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)lightBodyTextColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnRegularColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnLighterColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnDarkerColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnAccentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)buttonBackgroundColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 %end
 %hook YTQTMButton
@@ -252,7 +288,22 @@ UIColor *lcmHexColor;
 + (UIColor *)lightTextColor {
          return lcmHexColor;
 }
++ (UIColor *)lightGrayColor {
+         return lcmHexColor;
+}
++ (UIColor *)ychGrey7 {
+         return lcmHexColor;
+}
++ (UIColor *)skt_chipBackgroundColor {
+         return lcmHexColor;
+}
 + (UIColor *)placeholderTextColor {
+         return lcmHexColor;
+}
++ (UIColor *)systemLightGrayColor {
+         return lcmHexColor;
+}
++ (UIColor *)systemExtraLightGrayColor {
          return lcmHexColor;
 }
 + (UIColor *)labelColor {
@@ -296,8 +347,20 @@ UIColor *lcmHexColor;
 - (UIColor *)overlayIconActiveOther {
     return self.pageStyle == 1 ? [UIColor whiteColor] : %orig;
 }
+- (UIColor *)overlayIconInactive {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.7] : %orig;
+}
+- (UIColor *)overlayIconDisabled {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.3] : %orig;
+}
+- (UIColor *)overlayFilledButtonActive {
+    return self.pageStyle == 1 ? [[UIColor whiteColor] colorWithAlphaComponent:0.2] : %orig;
+}
 %end
 %hook YTColor
++ (BOOL)darkerPaletteTextColorEnabled {
+    return NO;
+}
 + (UIColor *)white2 {
     return [UIColor whiteColor];
 }
@@ -310,37 +373,64 @@ UIColor *lcmHexColor;
 + (UIColor *)white5 {
     return [UIColor whiteColor];
 }
++ (UIColor *)grey1 {
+    return [UIColor whiteColor];
+}
++ (UIColor *)grey2 {
+    return [UIColor whiteColor];
+}
 %end
 %hook QTMColorGroup
 - (UIColor *)tint100 {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)tint300 {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)tint500 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)tint700 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accent200 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accent400 {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)accentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)brightAccentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)regularColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)darkerColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)bodyTextColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnLighterColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnRegularColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnDarkerColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnAccentColor {
-    return [UIColor whiteColor];
-}
-- (UIColor *)bodyTextColorOnOnBrightAccentColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)lightBodyTextColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnRegularColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnLighterColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnDarkerColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
+}
+- (UIColor *)bodyTextColorOnAccentColor {
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 - (UIColor *)buttonBackgroundColor {
-    return [UIColor whiteColor];
+    return self.groupID == 20 ? [UIColor whiteColor] : %orig;
 }
 %end
 %hook YTQTMButton
