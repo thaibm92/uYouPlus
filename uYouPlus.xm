@@ -307,14 +307,17 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %end
 
 // YTShortsProgress - https://github.com/PoomSmart/YTShortsProgress/
+%hook YTShortsPlayerViewController
+- (BOOL)shouldAlwaysEnablePlayerBar { return YES; }
+- (BOOL)shouldEnablePlayerBarOnlyOnPause { return NO; }
+%end
+
 %hook YTReelPlayerViewController
-- (BOOL)shouldEnablePlayerBar { return YES; }
 - (BOOL)shouldAlwaysEnablePlayerBar { return YES; }
 - (BOOL)shouldEnablePlayerBarOnlyOnPause { return NO; }
 %end
 
 %hook YTReelPlayerViewControllerSub
-- (BOOL)shouldEnablePlayerBar { return YES; }
 - (BOOL)shouldAlwaysEnablePlayerBar { return YES; }
 - (BOOL)shouldEnablePlayerBarOnlyOnPause { return NO; }
 %end
@@ -379,18 +382,14 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-%hook YTSegmentableInlinePlayerBarView // Old Buffer Bar - YTNoModernUI
+%hook YTSegmentableInlinePlayerBarView // Gray Buffer Progress - YTNoModernUI
 - (void)setBufferedProgressBarColor:(id)arg1 {
      [UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:0.60];
 }
 %end
 
 %hook YTQTMButton
-- (BOOL)buttonModernizationEnabled { return NO; }
-%end
-
-%hook YTSearchBarView
-- (BOOL)_roundedSearchBarEnabled { return NO; }
++ (BOOL)buttonModernizationEnabled { return NO; }
 %end
 
 %hook YTColdConfig
@@ -399,13 +398,11 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 - (BOOL)cxClientEnableModernizedActionSheet { return NO; }
 - (BOOL)enableClientShortsSheetsModernization { return NO; }
 - (BOOL)enableTimestampModernizationForNative { return NO; }
-- (BOOL)mainAppCoreClientIosEnableModernOssPage { return NO; }
 - (BOOL)modernizeElementsTextColor { return NO; }
 - (BOOL)modernizeElementsBgColor { return NO; }
 - (BOOL)modernizeCollectionLockups { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableEpUxUpdates { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNative { return NO; }
-- (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNativeLongTail { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableModernTabsForNative { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigIosEnableSnackbarModernization { return NO; }
 // Disable Rounded Content - YTNoModernUI
