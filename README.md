@@ -193,16 +193,16 @@
 
   - My official AltStore repo: https://therealfoxster.github.io/altsource-viewer/index.html?source=https://raw.githubusercontent.com/arichorn/arichorn.github.io/main/apps.json
 
-  - [Open in AltStore (v18.34.5-3.0.1)](https://tinyurl.com/mr3nrdz2) - It will take a while to install because AltStore needs to download the IPA first.
+  - [Open in AltStore (v18.35.4-3.0.1)](https://tinyurl.com/3akz8ybn) - It will take a while to install because AltStore needs to download the IPA first.
 
-- Version info: _(last update: Sep 5)_
+- Version info: _(last update: Sep 11)_
 
 <details>
   <summary>Expand ℹ️</summary>
 
 | **Tweaks/App** | **Developer** | **Version** | **Open source** |
 | - | - | :-: | :-:  |
-| **YouTube** | Google Inc | 18.34.5 | ✖︎ |
+| **YouTube** | Google Inc | 18.35.4 | ✖︎ |
 | [uYou](https://github.com/MiRO92/uYou-for-YouTube) | [MiRO92](https://twitter.com/miro92) | 3.0.1 | ✖︎ |
 | **Open in YouTube** | [CokePokes](https://github.com/CokePokes) | 1.2 | [✔︎](https://github.com/CokePokes/YoutubeExtensions) |
 | **iSponsorBlock** | [Galactic-Dev](https://github.com/Galactic-Dev) | 1.2 | [✔︎](https://github.com/Galactic-Dev/iSponsorBlock) |
@@ -236,7 +236,7 @@
 |-----------|:----------------------:|:-------------------------:|:-------------------------:|
 | MiRO92 | uYou 2.1/2.3~1 | Works on v16.42.3-18.01.6 | Works on iOS13-iOS15 |
 | MiRO92 | uYou 3.0 | Works on v18.06.6-18.18.2 | Works on iOS14-iOS15 |
-| MiRO92 | uYou 3.0.1 | Works on v18.06.6-latest | Works on iOS14-iOS16 |
+| MiRO92 | uYou 3.0.1 | Works on v18.08.1-latest | Works on iOS14-iOS17 |
 
 # Installation
 See [Installation - Wiki](https://github.com/qnblackcat/uYouPlus/wiki/Installation).
