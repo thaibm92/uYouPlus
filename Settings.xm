@@ -352,6 +352,7 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+/*
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `DontEatMyContent` Section")
                 titleDescription:LOC(@"App restart is required.")
                 accessibilityIdentifier:nil
@@ -381,6 +382,7 @@ extern NSBundle *uYouPlusBundle();
                     return YES;
                 }
                 settingItemId:0],
+*/
 
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Autoplay` Section")
                 titleDescription:LOC(@"App restart is required.")
