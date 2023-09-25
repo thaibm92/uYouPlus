@@ -736,6 +736,15 @@ static void replaceTab(YTIGuideResponse *response) {
         self.hidden = YES; 
     }
 
+// Hide Header Links under Channel Profile - @arichorn
+    if ((IsEnabled(@"hideChannelHeaderLinks_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"eml.channel_header_links"])) {
+        self.hidden = YES;
+        self.opaque = YES;
+        self.userInteractionEnabled = NO;
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }
+
 // Hide the Download Button under the Video Player - @arichorn
     if ((IsEnabled(@"hideAddToOfflineButton_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.add_to_offline.button"])) {
         self.hidden = YES;
