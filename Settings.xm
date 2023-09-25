@@ -1643,6 +1643,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Header Links under Channel Profile")
+                titleDescription:LOC(@"Hides the Header Links under any Channel Profile.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideChannelHeaderLinks_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideChannelHeaderLinks_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
 /*
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
                 titleDescription:LOC(@"Hides the Download Button below the player.")
