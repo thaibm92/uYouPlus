@@ -1024,6 +1024,17 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
+// Hide Suggested Videos in Video Player - @arichorn
+%hook YTAutonavEndscreenView
+- (void)didMoveToWindow {
+    %orig;
+    self.hidden = YES;
+    self.userInteractionEnabled = NO;
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+%end
+
 # pragma mark - ctor
 %ctor {
     // Load uYou first so its functions are available for hooks.
