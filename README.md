@@ -193,30 +193,30 @@
 
   - My official AltStore repo: https://therealfoxster.github.io/altsource-viewer/index.html?source=https://raw.githubusercontent.com/arichorn/arichorn.github.io/main/apps.json
 
-  - [Open in AltStore (v18.35.4-3.0.1)](https://tinyurl.com/3akz8ybn) - It will take a while to install because AltStore needs to download the IPA first.
+  - [Open in AltStore (v18.38.2-3.0.1)](https://tinyurl.com/2a93pwzs) - It will take a while to install because AltStore needs to download the IPA first.
 
-- Version info: _(last update: Sep 11)_
+- Version info: _(last update: Sep 24)_
 
 <details>
   <summary>Expand ℹ️</summary>
 
 | **Tweaks/App** | **Developer** | **Version** | **Open source** |
 | - | - | :-: | :-:  |
-| **YouTube** | Google Inc | 18.35.4 | ✖︎ |
+| **YouTube** | Google Inc | 18.38.2 | ✖︎ |
 | [uYou](https://github.com/MiRO92/uYou-for-YouTube) | [MiRO92](https://twitter.com/miro92) | 3.0.1 | ✖︎ |
 | **Open in YouTube** | [CokePokes](https://github.com/CokePokes) | 1.2 | [✔︎](https://github.com/CokePokes/YoutubeExtensions) |
 | **iSponsorBlock** | [Galactic-Dev](https://github.com/Galactic-Dev) | 1.2 | [✔︎](https://github.com/Galactic-Dev/iSponsorBlock) |
 | **BigYTMiniPlayer** | [Galactic-Dev](https://github.com/Galactic-Dev) | 1.0-1 | [✔︎](https://github.com/Galactic-Dev/BigYTMiniPlayer) |
 | **YTNoHoverCards** | [level3tjg](https://twitter.com/level3tjg) | 0.0.3 | [✔︎](https://github.com/level3tjg/YTNoHoverCards) |
 | **YTMiniplayerEnabler** | [level3tjg](https://twitter.com/level3tjg) | 0.0.2 | [✔︎](https://github.com/level3tjg/YTMiniplayerEnabler) |
-| **DontEatMyContent** | [therealFoxster](https://github.com/therealFoxster) | 1.0.10 | [✔︎](https://github.com/therealFoxster/DontEatMyContent) |
+| **DontEatMyContent** | [therealFoxster](https://github.com/therealFoxster) | 1.0.11 | [✔︎](https://github.com/therealFoxster/DontEatMyContent) |
 | **YTSpeed** | [Lyvendia](https://github.com/Lyvendia) | 1.0.1 | [✔︎](https://github.com/Lyvendia/YTSpeed) |
 | **YTCastConfirm** | [JamieBerghmans](https://github.com/JamieBerghmans) | 1.0.0 | [✔︎](https://github.com/JamieBerghmans/YTCastConfirm) |
 | **Alderis Color Picker** | [HASHBANG Productions](https://github.com/hbang) | 1.2| [✔︎](https://github.com/hbang/Alderis) |
 | **YTUHD** | [PoomSmart](https://twitter.com/poomsmart) | 1.4.0 | [✔︎](https://github.com/PoomSmart/YTUHD) |
 | **YouPiP** | [PoomSmart](https://twitter.com/poomsmart) | 1.7.20 | [✔︎](https://github.com/PoomSmart/YouPiP) |
 | **IAmYouTube** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.0 | [✔︎](https://github.com/PoomSmart/IAmYouTube) |
-| **YTABConfig** | [PoomSmart](https://twitter.com/poomsmart) | 1.5.0-1 | [✔︎](https://github.com/PoomSmart/YTABConfig) |
+| **YTABConfig** | [PoomSmart](https://twitter.com/poomsmart) | 1.5.0-2 | [✔︎](https://github.com/PoomSmart/YTABConfig) |
 | **YTReExplore** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.2 | [✔︎](https://github.com/PoomSmart/YTReExplore) |
 | **NoYTPremium** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.4 | [✔︎](https://github.com/PoomSmart/NoYTPremium) |
 | **YTNoPaidPromo** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.0 | [✔︎](https://github.com/PoomSmart/YTNoPaidPromo) |
@@ -224,9 +224,9 @@
 | **Return YouTube Dislike** | [PoomSmart](https://twitter.com/poomsmart) | 1.11.3 | [✔︎](https://github.com/PoomSmart/Return-YouTube-Dislikes) |
 | **YouMute** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.1-2 | [✔︎](https://github.com/PoomSmart/YouMute) |
 | **YouQuality** | [PoomSmart](https://twitter.com/poomsmart) | 1.1.4 | [✔︎](https://github.com/PoomSmart/YouQuality) |
-| **YTVideoOverlay** | [PoomSmart](https://twitter.com/poomsmart) | 1.1.0-2 | [✔︎](https://github.com/PoomSmart/YTVideoOverlay) |
+| **YTVideoOverlay** | [PoomSmart](https://twitter.com/poomsmart) | 1.1.1 | [✔︎](https://github.com/PoomSmart/YTVideoOverlay) |
 | **YTNoCommunityPosts** | [michael-winay](https://github.com/michael-winay) | 0.0.2 | [✔︎](https://github.com/michael-winay/YTNoCommunityPosts) |
-| **LowContrastMode** | [arichorn](https://github.com/arichorn) | 1.4.2 | [✔︎](https://github.com/arichorn/YTLowContrastMode) |
+| **LowContrastMode** | [arichorn](https://github.com/arichorn) | 1.5.0 | [✔︎](https://github.com/arichorn/YTLowContrastMode) |
 
 </details>
 
