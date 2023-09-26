@@ -191,6 +191,9 @@
 @interface _ASDisplayView : UIView
 @end
 
+@interface YTAutonavEndscreenView : UIView
+@end
+
 @interface YTPivotBarIndicatorView : UIView
 @end
 
