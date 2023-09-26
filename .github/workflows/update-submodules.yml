@@ -18,6 +18,10 @@ jobs:
 
       - name: Update submodules
         run: |
+          git submodule deinit Tweaks/YTNoCommunityPosts
+          git rm Tweaks/YTNoCommunityPosts
+          rm -rf .git/modules/Tweaks/YTNoCommunityPosts
+          git add .
           git submodule update --init --recursive --remote Tweaks/Alderis
           git add .
           git submodule update --init --recursive --remote Tweaks/DontEatMyContent
