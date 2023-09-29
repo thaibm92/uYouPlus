@@ -384,16 +384,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 %hook YTSegmentableInlinePlayerBarView // Gray Buffer Progress - YTNoModernUI
 - (void)setBufferedProgressBarColor:(id)arg1 {
-     [UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:0.60];
-}
-%end
-
-%hook CALayer // Less Rounded iPhone Overflow Menu - YTNoModernUI
-- (CGFloat)cornerRadius {
-    if (self == (CALayer *)0x285f309e0) {
-        return 6.0;
-    }
-    return %orig;
+     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.90];
 }
 %end
 
