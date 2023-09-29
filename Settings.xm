@@ -1583,8 +1583,8 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Remove Modern Interface (YTNoModernUI)")
-                titleDescription:LOC(@"Toggle this on to remove any Modern Element added to YouTube. Removes Ambient Mode, Rounded Design & More. App restart is required.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Remove the Modern UI (YTNoModernUI)")
+                titleDescription:LOC(@"When Enabled, this will remove any modern element added to YouTube such as Rounded Buttons, Rounded Hints, Fixes LowContrastMode functionality. App restart is required.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"ytNoModernUI_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
@@ -1643,8 +1643,8 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Header Links under Channel Profile")
-                titleDescription:LOC(@"Hides the Header Links under any Channel Profile.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Header Links under channel profile")
+                titleDescription:LOC(@"Hides the Header Links under any channel profile.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"hideChannelHeaderLinks_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
