@@ -365,7 +365,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 + (NSString *)appVersion { return @"17.38.10"; }
 %end
 
-%hook YTSettingsCell // made by Dayanch96
+%hook YTSettingsCell // Remove v17.38.10 Version Number - @Dayanch96
 - (void)setDetailText:(id)arg1 {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appVersion = infoDictionary[@"CFBundleShortVersionString"];
@@ -388,8 +388,21 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-%hook YTQTMButton
+%hook CALayer // Less Rounded iPhone Overflow Menu - YTNoModernUI
+- (CGFloat)cornerRadius {
+    if (self == (CALayer *)0x285f309e0) {
+        return 6.0;
+    }
+    return %orig;
+}
+%end
+
+%hook YTQTMButton // No Modern/Rounded Buttons - YTNoModernUI
 + (BOOL)buttonModernizationEnabled { return NO; }
+%end
+
+%hook YTBubbleHintView // No Modern/Rounded Hints - YTNoModernUI
++ (BOOL)modernRoundedCornersEnabled { return NO; }
 %end
 
 %hook YTColdConfig
