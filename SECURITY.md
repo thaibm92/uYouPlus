@@ -1,7 +1,9 @@
 # Security Policy for uYouPlus Developers
 If I verify a reported security vulnerability, my policy is:
 
-- the Contributors are allowed to patch only the **main** branch unless an additional branch is involved. implementation of anything like custom features/options, updated features/options, Localization & Grammer Errors.
+- the Contributors are allowed to patch only the **main** branch unless an additional branch is involved. implementation of anything like custom features/options, updated features/options, Grammer Errors.
+
+- uYouPlusExtra doesn't support Localization pull requests. this may be a sudden change but its pretty hard to maintain the the localization whenever the branch resets. so therefore its hard to keep any localization changed on uYouPlusExtra.
 
 ## Supported Versions
 
