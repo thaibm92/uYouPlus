@@ -1028,16 +1028,29 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
+/*
 // Hide Suggested Videos in Video Player - @arichorn
 %hook YTAutonavEndscreenView
 - (void)didMoveToWindow {
     %orig;
     self.hidden = YES;
-    self.userInteractionEnabled = NO;
+    [self sizeToFit];
     [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [self removeFromSuperview];
 }
 %end
+
+// Hide Preview Videos whenever video ends in Video Player - @arichorn
+%hook YTAutonavPreviewView
+- (void)didMoveToWindow {
+    %orig;
+    self.hidden = YES;
+    [self sizeToFit];
+    [self setNeedsLayout];
+    [self removeFromSuperview];
+}
+%end
+*/
 
 # pragma mark - ctor
 %ctor {
