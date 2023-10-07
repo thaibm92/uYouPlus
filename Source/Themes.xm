@@ -1,4 +1,4 @@
-#import "../Header.h"
+#import "../uYouPlus.h"
 
 static BOOL IsEnabled(NSString *key) {
     return [[NSUserDefaults standardUserDefaults] boolForKey:key];
