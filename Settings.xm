@@ -1643,6 +1643,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Community Posts")
+                titleDescription:LOC(@"Hides the Community Posts. App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideCommunityPosts_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideCommunityPosts_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Header Links under channel profile")
                 titleDescription:LOC(@"Hides the Header Links under any channel profile.")
                 accessibilityIdentifier:nil
@@ -1653,7 +1663,6 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-/*
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
                 titleDescription:LOC(@"Hides the Download Button below the player.")
                 accessibilityIdentifier:nil
@@ -1663,7 +1672,6 @@ extern NSBundle *uYouPlusBundle();
                     return YES;
                 }
                 settingItemId:0],
-*/
 
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
                 titleDescription:LOC(@"Hides the Comment Section below the player.")
@@ -1711,6 +1719,16 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"reExplore_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"reExplore_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Shorts in Channels")
+                titleDescription:LOC(@"Hides the Shorts shown in YouTube Channels. App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideShortsFromChannel_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideShortsFromChannel_enabled"];
                     return YES;
                 }
                 settingItemId:0],
