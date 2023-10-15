@@ -750,7 +750,7 @@ static void replaceTab(YTIGuideResponse *response) {
         [self removeFromSuperview];
     }
 
-// Hide the Comment Section under the Video Player - @arichorn
+// Hide the Comment Section under the Video Player (1) - @arichorn
     if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
         self.hidden = YES;
         self.opaque = YES;
@@ -783,6 +783,11 @@ static void replaceTab(YTIGuideResponse *response) {
         _ASCollectionViewCell *asCell = (_ASCollectionViewCell *)cell;
         
         NSString *result = [[[[asCell node] accessibilityElements] valueForKey:@"description"] componentsJoinedByString:@""];
+
+        // Hide the Comment Section under the Video Player (2) - @arichorn
+        if (IsEnabled(@"hideCommentSection_enabled") && [result rangeOfString:@"id.ui.comments_entry_point_teaser"].location != NSNotFound) {
+            [self deleteItemsAtIndexPaths:@[indexPath]];
+        }
 
         // Hide Community Posts - @arichorn
         if (IsEnabled(@"hideCommunityPosts_enabled") && [result rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
@@ -990,6 +995,24 @@ static void replaceTab(YTIGuideResponse *response) {
 - (void)setVisibleSections:(NSInteger)arg1 {
     arg1 = 1;
     %orig(arg1);
+}
+%end
+
+%hook YTFullScreenEngagementOverlayView
+- (void)setRelatedVideosView:(id)view {
+}
+- (void)updateRelatedVideosViewSafeAreaInsets {
+}
+- (id)relatedVideosView {
+    return nil;
+}
+%end
+
+%hook YTFullScreenEngagementOverlayViewController
+- (void)setRelatedVideosVisible:(BOOL)visible {
+}
+- (BOOL)relatedVideosPeekingEnabled {
+    return NO;
 }
 %end
 %end
