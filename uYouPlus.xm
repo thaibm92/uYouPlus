@@ -750,15 +750,6 @@ static void replaceTab(YTIGuideResponse *response) {
         [self removeFromSuperview];
     }
 
-// Hide the Download Button under the Video Player - @arichorn
-    if ((IsEnabled(@"hideAddToOfflineButton_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.add_to_offline.button"])) {
-        self.hidden = YES;
-        self.userInteractionEnabled = NO;
-        [self sizeToFit];
-        [self setNeedsLayout];
-        [self removeFromSuperview];
-    }
-
 // Hide the Comment Section under the Video Player - @arichorn
     if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
         self.hidden = YES;
@@ -781,6 +772,37 @@ static void replaceTab(YTIGuideResponse *response) {
 %hook YTShortsStartupCoordinator
 - (id)evaluateResumeToShorts { 
     return IsEnabled(@"disableResumeToShorts_enabled") ? nil : %orig;
+}
+%end
+
+%hook YTAsyncCollectionView
+- (id)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = %orig;
+    
+    if ([cell isKindOfClass:NSClassFromString(@"_ASCollectionViewCell")]) {
+        _ASCollectionViewCell *asCell = (_ASCollectionViewCell *)cell;
+        
+        NSString *result = [[[[asCell node] accessibilityElements] valueForKey:@"description"] componentsJoinedByString:@""];
+
+        // Hide Community Posts - @arichorn
+        if (IsEnabled(@"hideCommunityPosts_enabled") && [result rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
+            [self deleteItemsAtIndexPaths:@[indexPath]];
+        }
+        if (IsEnabled(@"hideCommunityPosts_enabled") && [result rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound) {
+            [self deleteItemsAtIndexPaths:@[indexPath]];
+        }
+
+        // Hide all Shorts Videos in Channels - @arichorn
+        if (IsEnabled(@"hideShortsFromChannel_enabled") && [result rangeOfString:@"eml.shorts-video-item"].location != NSNotFound) {
+            [self deleteItemsAtIndexPaths:@[indexPath]];
+        }
+
+        // Hide the Download Button under the Video Player - @arichorn
+        if (IsEnabled(@"hideAddToOfflineButton_enabled") && [result rangeOfString:@"id.ui.add_to_offline.button"].location != NSNotFound) {
+            [self deleteItemsAtIndexPaths:@[indexPath]];
+        }
+    }
+    return cell;
 }
 %end
 
