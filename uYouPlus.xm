@@ -784,6 +784,9 @@ static void replaceTab(YTIGuideResponse *response) {
         
         NSString *result = [[[[asCell node] accessibilityElements] valueForKey:@"description"] componentsJoinedByString:@""];
 
+        if ([cell respondsToSelector:@selector(node)]) {
+            NSString *idToRemove = [[cell node] accessibilityIdentifier];
+
         // Hide the Comment Section under the Video Player (2) - @arichorn
         if (IsEnabled(@"hideCommentSection_enabled") && [result rangeOfString:@"id.ui.comments_entry_point_teaser"].location != NSNotFound) {
             [self deleteItemsAtIndexPaths:@[indexPath]];
@@ -810,8 +813,14 @@ static void replaceTab(YTIGuideResponse *response) {
 %hook _ASDisplayView
 - (id)initWithElement:(ELMElement *)element {
     id result = %orig;
-    if (IsEnabled(@"hideAddToOfflineButton_enabled") && ([element respondsToSelector:@selector(identifier)] && [[element identifier] isEqualToString:@"id.ui.add_to.offline.button"]) {
-        [result setHidden:YES];
+    if (IsEnabled(@"hideAddToOfflineButton_enabled")) {
+        SEL identifierSelector = NSSelectorFromString(@"identifier");
+        if ([element respondsToSelector:identifierSelector]) {
+            NSString *identifier = [element performSelector:identifierSelector];
+            if ([identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
+                [result setHidden:YES];
+            }
+        }
     }
     return result;
 }
