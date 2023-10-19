@@ -750,7 +750,7 @@ static void replaceTab(YTIGuideResponse *response) {
         [self removeFromSuperview];
     }
 
-// Hide the Comment Section under the Video Player (1) - @arichorn
+// Hide the Comment Section under the Video Player - @arichorn
     if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
         self.hidden = YES;
         self.opaque = YES;
@@ -779,22 +779,14 @@ static void replaceTab(YTIGuideResponse *response) {
 - (id)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = %orig;
     
-    if ([cell isKindOfClass:NSClassFromString(@"_ASCollectionViewCell")]) {
-        _ASCollectionViewCell *asCell = (_ASCollectionViewCell *)cell;
-        
-        NSString *result = [[[[asCell node] accessibilityElements] valueForKey:@"description"] componentsJoinedByString:@""];
-
+    if ([cell isKindOfClass:objc_lookUpClass("_ASCollectionViewCell")]) {
+        _ASCollectionViewCell *cell = %orig;
         if ([cell respondsToSelector:@selector(node)]) {
             NSString *idToRemove = [[cell node] accessibilityIdentifier];
-
-            // Hide the Comment Section under the Video Player (2) - @arichorn
-            if (IsEnabled(@"hideCommentSection_enabled") && [result rangeOfString:@"id.ui.comments_entry_point_teaser"].location != NSNotFound) {
-                [self deleteItemsAtIndexPaths:@[indexPath]];
-            }
             
-            // Hide Community Posts - @arichorn
-            if (IsEnabled(@"hideCommunityPosts_enabled") && ([result rangeOfString:@"id.ui.backstage.post"].location != NSNotFound || [result rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound)) {
-                [self deleteItemsAtIndexPaths:@[indexPath]];
+            // Hide Community Posts
+            if (IsEnabled(@"hideCommunityPosts_enabled") && ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound || [idToRemove rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound)) {
+                [self removeCellsAtIndexPath:indexPath];
             }
             
             // Hide Shorts Cells (from YTLite) - @dayanch96
@@ -805,19 +797,21 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     return cell;
 }
+%new
+- (void)removeCellsAtIndexPath:(NSIndexPath *)indexPath {
+    [self deleteItemsAtIndexPaths:@[indexPath]];
+}
 %end
 
-// Hide the Download Button under the Video Player (Experimental) - @arichorn
+// Hide the Download Button under the Video Player - @arichorn
 %hook _ASDisplayView
 - (id)initWithElement:(ELMElement *)element {
     id result = %orig;
     if (IsEnabled(@"hideAddToOfflineButton_enabled")) {
-        SEL identifierSelector = NSSelectorFromString(@"identifier");
-        if ([element respondsToSelector:identifierSelector]) {
-            NSString *identifier = [element performSelector:identifierSelector];
-            if ([identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
-                [result setHidden:YES];
-            }
+        NSString *(*identifierSelector)(id, SEL) = (NSString *(*)(id, SEL))[element methodForSelector:NSSelectorFromString(@"identifier")];
+        NSString *identifier = identifierSelector(element, NSSelectorFromString(@"identifier"));
+        if ([identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
+            [result setHidden:YES];
         }
     }
     return result;
