@@ -16,6 +16,7 @@
 #import "Tweaks/YouTubeHeader/YTIPivotBarSupportedRenderers.h"
 #import "Tweaks/YouTubeHeader/YTIPivotBarRenderer.h"
 #import "Tweaks/YouTubeHeader/YTIBrowseRequest.h"
+#import "Tweaks/YouTubeHeader/YTISectionListRenderer.h"
 #import "Tweaks/YouTubeHeader/YTColorPalette.h"
 #import "Tweaks/YouTubeHeader/YTCommonColorPalette.h"
 #import "Tweaks/YouTubeHeader/YTSettingsSectionItemManager.h"
@@ -26,7 +27,6 @@
 #import "Tweaks/YouTubeHeader/YTReelPlayerBottomButton.h"
 #import "Tweaks/YouTubeHeader/YTReelPlayerViewController.h"
 #import "Tweaks/YouTubeHeader/YTAlertView.h"
-#import "Tweaks/YouTubeHeader/YTISectionListRenderer.h"
 #import "Tweaks/YouTubeHeader/YTIMenuConditionalServiceItemRenderer.h"
 #import "Tweaks/YouTubeHeader/YTPivotBarItemView.h"
 #import "Tweaks/YouTubeHeader/YTVideoWithContextNode.h" // YouTube-X
@@ -61,6 +61,7 @@
 @end
 
 @interface YTAsyncCollectionView : UICollectionView
+- (void)removeCellsAtIndexPath:(NSIndexPath *)indexPath;
 - (void)removeShortsAndFeaturesAdsAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
