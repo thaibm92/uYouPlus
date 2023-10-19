@@ -797,17 +797,23 @@ static void replaceTab(YTIGuideResponse *response) {
             [self deleteItemsAtIndexPaths:@[indexPath]];
         }
 
-        // Hide all Shorts Videos in Channels - @arichorn
-        if (IsEnabled(@"hideShortsFromChannel_enabled") && [result rangeOfString:@"eml.shorts-video-item"].location != NSNotFound) {
-            [self deleteItemsAtIndexPaths:@[indexPath]];
-        }
-
-        // Hide the Download Button under the Video Player - @arichorn
-        if (IsEnabled(@"hideAddToOfflineButton_enabled") && [result rangeOfString:@"id.ui.add_to_offline.button"].location != NSNotFound) {
-            [self deleteItemsAtIndexPaths:@[indexPath]];
+        // Hide Shorts Cells (from YTLite) - @dayanch96
+        if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] || [idToRemove isEqualToString:@"eml.inline_shorts"] || [idToRemove isEqualToString:@"eml.shorts-video-item"])) {
+            [self removeCellsAtIndexPath:indexPath];
         }
     }
     return cell;
+}
+%end
+
+// Hide the Download Button under the Video Player (Experimental) - @arichorn
+%hook _ASDisplayView
+- (id)initWithElement:(ELMElement *)element {
+    id result = %orig;
+    if (IsEnabled(@"hideAddToOfflineButton_enabled") && ([element respondsToSelector:@selector(identifier)] && [[element identifier] isEqualToString:@"id.ui.add_to.offline.button"]) {
+        [result setHidden:YES];
+    }
+    return result;
 }
 %end
 
