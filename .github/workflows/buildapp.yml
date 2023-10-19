@@ -6,6 +6,16 @@ name: Build and Release uYouPlusExtra
 on:
   workflow_dispatch:
     inputs:
+      sdk_version:
+        description: "iOS SDK version to be used during build"
+        default: "16.2"
+        required: true
+        type: string
+      youtube_version:
+        description: "The version of YouTube"
+        default: ""
+        required: true
+        type: string
       uyou_version:
         description: "The version of uYou"
         default: "3.0.1"
@@ -16,11 +26,11 @@ on:
         default: ""
         required: true
         type: string
-      youtube_version:
-        description: "The version of YouTube"
-        default: ""
-        required: true
-        type: string
+      create_release:
+        description: "Create a draft release"
+        default: true
+        required: false
+        type: boolean
       bundle_id:
         description: "Modify the bundle ID. Not recommended"
         default: "com.google.ios.youtube"
@@ -31,11 +41,6 @@ on:
         default: "YouTube"
         required: true
         type: string
-      create_release:
-        description: "Create a draft release"
-        default: true
-        required: false
-        type: boolean
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -49,17 +54,17 @@ jobs:
       contents: write
 
     steps:
+      - name: Install Dependencies
+        run: brew install dpkg ldid make node svn wget xz
+
+      - name: Set PATH environment variable
+        run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
+
       - name: Checkout Main
         uses: actions/checkout@v3.6.0
         with:
           path: main
           submodules: recursive
-
-      - name: Install Dependencies
-        run: brew install ldid dpkg make
-
-      - name: Set PATH environment variable
-        run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH 
 
       - name: Setup Theos
         uses: actions/checkout@v3.6.0
@@ -69,19 +74,20 @@ jobs:
           path: theos
           submodules: recursive
       
-      - name: Caching
+      - name: SDK Caching
         id: SDK
         uses: actions/cache@v3.3.2
         env:
-          cache-name: iOS-16.2-SDK
+          cache-name: iOS-${{ inputs.sdk_version }}-SDK
         with:
           path: theos/sdks/
           key: ${{ env.cache-name }}
+          restore-keys: ${{ env.cache-name }}
       
-      - name: Download iOS 16.2 SDK
+      - name: Download iOS SDK
         if: steps.SDK.outputs.cache-hit != 'true'
         run: |
-          svn checkout -q https://github.com/arichorn/sdks/trunk/iPhoneOS16.2.sdk
+          svn checkout -q https://github.com/arichorn/sdks/trunk/iPhoneOS${{ inputs.sdk_version }}.sdk
           mv *.sdk $THEOS/sdks
         env:
           THEOS: ${{ github.workspace }}/theos
