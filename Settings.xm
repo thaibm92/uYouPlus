@@ -1723,12 +1723,12 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Shorts in Channels")
-                titleDescription:LOC(@"Hides the Shorts shown in YouTube Channels. App restart is required.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Shorts Cells")
+                titleDescription:LOC(@"Hides the Shorts Cells around the YouTube App. App restart is required.")
                 accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideShortsFromChannel_enabled")
+                switchOn:IsEnabled(@"hideShortsCells_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideShortsFromChannel_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideShortsCells_enabled"];
                     return YES;
                 }
                 settingItemId:0],
