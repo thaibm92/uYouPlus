@@ -787,22 +787,20 @@ static void replaceTab(YTIGuideResponse *response) {
         if ([cell respondsToSelector:@selector(node)]) {
             NSString *idToRemove = [[cell node] accessibilityIdentifier];
 
-        // Hide the Comment Section under the Video Player (2) - @arichorn
-        if (IsEnabled(@"hideCommentSection_enabled") && [result rangeOfString:@"id.ui.comments_entry_point_teaser"].location != NSNotFound) {
-            [self deleteItemsAtIndexPaths:@[indexPath]];
-        }
-
-        // Hide Community Posts - @arichorn
-        if (IsEnabled(@"hideCommunityPosts_enabled") && [result rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
-            [self deleteItemsAtIndexPaths:@[indexPath]];
-        }
-        if (IsEnabled(@"hideCommunityPosts_enabled") && [result rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound) {
-            [self deleteItemsAtIndexPaths:@[indexPath]];
-        }
-
-        // Hide Shorts Cells (from YTLite) - @dayanch96
-        if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] || [idToRemove isEqualToString:@"eml.inline_shorts"] || [idToRemove isEqualToString:@"eml.shorts-video-item"])) {
-            [self removeCellsAtIndexPath:indexPath];
+            // Hide the Comment Section under the Video Player (2) - @arichorn
+            if (IsEnabled(@"hideCommentSection_enabled") && [result rangeOfString:@"id.ui.comments_entry_point_teaser"].location != NSNotFound) {
+                [self deleteItemsAtIndexPaths:@[indexPath]];
+            }
+            
+            // Hide Community Posts - @arichorn
+            if (IsEnabled(@"hideCommunityPosts_enabled") && ([result rangeOfString:@"id.ui.backstage.post"].location != NSNotFound || [result rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound)) {
+                [self deleteItemsAtIndexPaths:@[indexPath]];
+            }
+            
+            // Hide Shorts Cells (from YTLite) - @dayanch96
+            if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] || [idToRemove isEqualToString:@"eml.inline_shorts"] || [idToRemove isEqualToString:@"eml.shorts-video-item"])) {
+                [self removeCellsAtIndexPath:indexPath];
+            }
         }
     }
     return cell;
