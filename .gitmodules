@@ -54,6 +54,7 @@
 [submodule "Tweaks/MrBeastify"]
 	path = Tweaks/MrBeastify
 	url = https://github.com/arichorn/MrBeastify.git
+	branch = main
 [submodule "Tweaks/FLEXing"]
 	path = Tweaks/FLEXing
 	url = https://github.com/PoomSmart/FLEXing
