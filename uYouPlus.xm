@@ -1004,7 +1004,10 @@ static void replaceTab(YTIGuideResponse *response) {
     %orig(arg1);
 }
 %end
+%end
 
+// Hide Videos in Fullscreen - @arichorn
+%group gNoVideosInFullscreen
 %hook YTFullScreenEngagementOverlayView
 - (void)setRelatedVideosView:(id)view {
 }
@@ -1166,6 +1169,9 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"noRelatedWatchNexts_enabled")) {
         %init(gNoRelatedWatchNexts);
+    }
+    if (IsEnabled(@"noVideosInFullscreen_enabled")) {
+        %init(gNoVideosInFullscreen);
     }
     if (IsEnabled(@"ytNoModernUI_enabled")) {
         %init(gYTNoModernUI);
