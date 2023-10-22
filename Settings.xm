@@ -284,6 +284,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Videos in Fullscreen")
+                titleDescription:LOC(@"Hide video player's videos whenever in fullscreen.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"noVideosInFullscreen_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"noVideosInFullscreen_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Enable YTSpeed")
                 titleDescription:LOC(@"Enable YTSpeed to have more Playback Speed Options. App restart is required.")
                 accessibilityIdentifier:nil
