@@ -797,7 +797,7 @@ extern NSBundle *uYouPlusBundle();
                     return @"v16.05.7";
                 case 0:
                 default:
-                    return @"Latest Version";
+                    return @"v18.35.4";
             }
         }
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
