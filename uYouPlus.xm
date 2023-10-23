@@ -788,11 +788,6 @@ static void replaceTab(YTIGuideResponse *response) {
             if (IsEnabled(@"hideCommunityPosts_enabled") && ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound || [idToRemove rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound)) {
                 [self removeCellsAtIndexPath:indexPath];
             }
-            
-            // Hide Shorts Cells (from YTLite) - @dayanch96
-            if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] || [idToRemove isEqualToString:@"eml.inline_shorts"] || [idToRemove isEqualToString:@"eml.shorts-video-item"])) {
-                [self removeCellsAtIndexPath:indexPath];
-            }
         }
     }
     return cell;
@@ -803,18 +798,62 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-// Hide the Download Button under the Video Player - @arichorn
+// Hide Shorts Cells - @arichorn
+%hook _ASDisplayView
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = %orig;
+
+    NSString *idToRemove = cell.reuseIdentifier;
+    if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] 
+    || [idToRemove isEqualToString:@"eml.inline_shorts"] 
+    || [idToRemove isEqualToString:@"eml.shorts-video-item"] 
+    || [idToRemove isEqualToString:@"eml.shelf_header"])) {
+        UIResponder *nextResponder = self.nextResponder;
+        while (nextResponder && ![nextResponder isKindOfClass:NSClassFromString(@"UICollectionViewController")]) {
+            nextResponder = nextResponder.nextResponder;
+        }
+        if ([nextResponder respondsToSelector:@selector(removeCellsAtIndexPath:)]) {
+            [nextResponder performSelector:@selector(removeCellsAtIndexPath:) withObject:indexPath];
+        }
+    }
+    return cell;
+}
+%end
+
+// Hide the (Download Button / Remix Button) under the Video Player - @arichorn
 %hook _ASDisplayView
 - (id)initWithElement:(ELMElement *)element {
-    id result = %orig;
-    if (IsEnabled(@"hideAddToOfflineButton_enabled")) {
-        NSString *(*identifierSelector)(id, SEL) = (NSString *(*)(id, SEL))[element methodForSelector:NSSelectorFromString(@"identifier")];
-        NSString *identifier = identifierSelector(element, NSSelectorFromString(@"identifier"));
-        if ([identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
-            [result setHidden:YES];
+    _ASDisplayView *result = (_ASDisplayView *)%orig;
+
+    BOOL hideAddToOfflineButtonEnabled = IsEnabled(@"hideAddToOfflineButton_enabled");
+    BOOL hideRemixButtonEnabled = IsEnabled(@"hideRemixButton_enabled");
+    NSString *identifier = [element valueForKey:@"identifier"];
+
+    [self findCellContainingButton:(UIButton *)result];
+
+    if ((hideAddToOfflineButtonEnabled && [identifier isEqualToString:@"id.ui.add_to.offline.button"]) ||
+        (hideRemixButtonEnabled && [identifier isEqualToString:@"id.video.remix.button"])) {
+
+        _ASDisplayView *cell = (_ASDisplayView *)[self findCellContainingButton:(UIButton *)result];
+        if (cell != nil && [identifier containsString:@"ELMContainerNode-View"]) {
+            NSRange range = [identifier rangeOfString:@"id.ui.add_to.offline.button"];
+            if (range.location != NSNotFound) {
+                // NSString *subIdentifier = [identifier substringWithRange:range];
+                // If you intend to use subIdentifier later, you can uncomment the above line. (uYouPlusExtra)
+            }
         }
     }
     return result;
+}
+- (id)findCellContainingButton:(UIButton *)button {
+    UIView *superView = button.superview;
+    while (superView != nil) {
+        if ([superView isKindOfClass:[UIView class]]) {
+            return superView;
+        }
+        superView = superView.superview;
+    }
+    return nil;
 }
 %end
 
