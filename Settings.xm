@@ -1674,11 +1674,21 @@ extern NSBundle *uYouPlusBundle();
                 settingItemId:0],
 
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
-                titleDescription:LOC(@"Hides the Download Button below the player.")
+                titleDescription:LOC(@"Hides the Download Button under the video player.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"hideAddToOfflineButton_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideAddToOfflineButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
+                titleDescription:LOC(@"Hides the Remix Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideRemixButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideRemixButton_enabled"];
                     return YES;
                 }
                 settingItemId:0],
