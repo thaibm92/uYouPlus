@@ -857,6 +857,34 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
+// Hide the (Remix Button) under the Video Player - Legacy Version - @arichorn
+%hook YTISlimMetadataButtonSupportedRenderers
+- (id)slimButton_buttonRenderer {
+    if (IsEnabled(@"hideRemixButton_enabled") && [self shouldHideButton]) {
+        return nil;
+    }
+    return %orig;
+}
+- (BOOL)shouldHideButton {
+    id buttonRenderer = [self slimMetadataButtonRenderer];
+    if ([buttonRenderer respondsToSelector:@selector(valueForKey:)]) {
+        NSString *targetId = [buttonRenderer valueForKey:@"target_id"];
+        return [targetId isEqualToString:@"shorts-creation-on-vod_watch"];
+    }
+    return NO;
+}
+- (id)slimMetadataButtonRenderer {
+    id renderer = %orig;
+    if ([renderer respondsToSelector:@selector(valueForKey:)]) {
+        NSString *targetId = [renderer valueForKey:@"target_id"];
+        if ([targetId isEqualToString:@"shorts-creation-on-vod_watch"]) {
+            return nil;
+        }
+    }
+    return renderer;
+}
+%end
+
 // App Settings Overlay Options
 %group gDisableAccountSection
 %hook YTSettingsSectionItemManager
