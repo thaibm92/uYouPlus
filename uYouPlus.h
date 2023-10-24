@@ -190,6 +190,7 @@
 @end
 
 @interface _ASDisplayView : UIView
+- (UIView *)findCellContainingButton:(UIButton *)button;
 @end
 
 @interface YTAutonavEndscreenView : UIView
