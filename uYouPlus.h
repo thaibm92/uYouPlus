@@ -151,11 +151,6 @@
 - (YTSingleVideoController *)activeVideo;
 @end
 
-@implementation YTSingleVideoController (Extension)
-- (float)playbackRate;
-- (void)setPlaybackRate:(float)arg1;
-@end
-
 // App Theme
 @interface YTColor : NSObject
 + (UIColor *)white1;
