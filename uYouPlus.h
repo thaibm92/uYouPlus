@@ -151,7 +151,7 @@
 - (YTSingleVideoController *)activeVideo;
 @end
 
-@interface YTSingleVideoController : NSObject
+@implementation YTSingleVideoController (Extension)
 - (float)playbackRate;
 - (void)setPlaybackRate:(float)arg1;
 @end
