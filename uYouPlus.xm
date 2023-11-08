@@ -144,6 +144,28 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
+// uYouPlusExtra Logo - #183
+%group gDefaultYouTubeLogo
+%hook UIImageView
+- (void)setImage:(UIImage *)image {
+    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
+    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
+    
+    if ([NSStringFromClass([image class]) isEqualToString:@"UIImage"] &&
+        [NSStringFromCGSize(image.size) isEqualToString:@"{122, 48}"] &&
+        [NSStringFromCGRect(self.bounds) isEqualToString:@"{{0, 0}, {122, 48}}"]) {
+        
+        if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo_dark"]) {
+            image = [UIImage imageWithContentsOfFile:customDarkLogo];
+        } else if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo"]) {
+            image = [UIImage imageWithContentsOfFile:customLightLogo];
+        }
+    }
+    %orig(image);
+}
+%end
+%end
+
 # pragma mark - Tweaks
 // IAmYouTube - https://github.com/PoomSmart/IAmYouTube/
 %hook YTVersionUtils
@@ -248,6 +270,101 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     return %orig(groupIdentifier);
 }
 %end
+
+// Work in Progress - main-nightly
+/*
+%hook YTPivotBarItemView
+@property (nonatomic, strong) YTPivotBarItemView *itemView7;
+- (void)layoutSubviews {
+    %orig;
+    self.itemView7 = [[YTPivotBarItemView alloc] init];
+    [self.itemView7.navigationButton setTitle:@"Settings" forState:UIControlStateNormal];
+    [self.itemView7.navigationButton setImage:[self getCustomIcon] forState:UIControlStateNormal];
+
+    // [self.itemView7.navigationButton addTarget:self action:@selector(settingsButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+
+    NSMutableArray *modifiedItemViews = [[self valueForKey:@"itemViews"] mutableCopy];
+    [modifiedItemViews addObject:self.itemView7];
+
+    [self setValue:modifiedItemViews forKey:@"itemViews"];
+}
+- (UIImage *)getCustomIcon {
+    return [UIImage imageNamed:@"SETTINGS"];
+}
+// You can remove this method if not needed - arichorn
+//- (id)getCustomSettingsEndpoint {
+//    YTINavigationEndpointRoot_applicationSettingsEndpoint *settingsEndpoint = [[YTINavigationEndpointRoot_applicationSettingsEndpoint alloc] init];
+//    [settingsEndpoint setHack:YES];
+//    return settingsEndpoint;
+//}
+%end
+
+%hook YTIPivotBarRenderer
+- (void)layoutSubviews {
+    %orig;
+    YTPivotBarView *pivotBarView = [self valueForKey:@"_pivotBarView"];
+    
+    YTPivotBarItemView *customItemView = [[YTPivotBarItemView alloc] init];
+    [customItemView.navigationButton setTitle:@"Settings" forState:UIControlStateNormal];
+    [customItemView.navigationButton setImage:[self getCustomIcon] forState:UIControlStateNormal];
+    
+    NSMutableArray<YTIPivotBarSupportedRenderers *> *itemsArray = [self itemsArray];
+    YTIPivotBarSupportedRenderers *supportedRenderer = nil;
+    for (YTIPivotBarSupportedRenderers *renderer in itemsArray) {
+        if ([[[renderer pivotBarItemRenderer] title] isEqualToString:@"Settings"]) {
+            supportedRenderer = renderer;
+            break;
+        }
+    }
+    if (supportedRenderer) {
+        [[supportedRenderer pivotBarItemRenderer] setPivotIdentifier:@"SettingsTab"];
+        
+        YTIBrowseEndpoint *browseEndpoint = [%c(YTIBrowseEndpoint) new];
+        [browseEndpoint setBrowseId:@"SettingsTab"];
+        
+        YTINavigationEndpoint *navigationEndpoint = [%c(YTINavigationEndpoint) new];
+        [navigationEndpoint setBrowseEndpoint:browseEndpoint];
+        
+        [[supportedRenderer pivotBarItemRenderer] setNavigationEndpoint:navigationEndpoint];
+        
+        NSMutableArray *modifiedItemViews = [[pivotBarView valueForKey:@"itemViews"] mutableCopy];
+        [modifiedItemViews addObject:customItemView];
+        
+        [pivotBarView setValue:modifiedItemViews forKey:@"itemViews"];
+    }
+}
+- (UIImage *)getCustomIcon {
+    return [UIImage imageNamed:@"SETTINGS"];
+}
+%end
+
+%hook YTIPivotBarItemRenderer
+- (NSString *)pivotIdentifier {
+    return @"SettingsTab";
+}
+- (YTICommand *)navigationEndpoint {
+    YTICommand *originalEndpoint = %orig;
+
+    if (!originalEndpoint) {
+        YTIBrowseEndpoint *browseEndpoint = [[%c(YTIBrowseEndpoint) alloc] init];
+        [browseEndpoint setBrowseId:@"SettingsTab"];
+
+        YTICommand *customEndpoint = [[%c(YTICommand) alloc] init];
+        [customEndpoint setBrowseEndpoint:browseEndpoint];
+
+        return (YTICommand *)customEndpoint;
+    }
+
+    return originalEndpoint;
+}
+- (void)setNavigationEndpoint:(YTICommand *)navigationEndpoint {
+    %orig;
+}
+- (NSString *)targetId {
+    return @"SettingsTab";
+}
+%end
+*/
 
 // YTMiniPlayerEnabler: https://github.com/level3tjg/YTMiniplayerEnabler/
 %hook YTWatchMiniBarViewController
@@ -686,7 +803,7 @@ static void replaceTab(YTIGuideResponse *response) {
 - (BOOL)removePreviousPaddleForSingletonVideos { return YES; }
 %end
 
-// %hook YTMainAppControlsOverlayView // this is only used for v16.42.3 (incompatible with YouTube v17.xx.x-newer)
+// %hook YTMainAppControlsOverlayView // this is only used for v16.xx.x (issues if using with YouTube v17.xx.x up to latest)
 // - (void)layoutSubviews { // hide Next & Previous legacy buttons
 //     %orig;
 //     if (IsEnabled(@"hidePreviousAndNextButton_enabled")) { 
@@ -771,7 +888,10 @@ static void replaceTab(YTIGuideResponse *response) {
     }
 
 // Hide the Comment Section under the Video Player - @arichorn
-    if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
+    if ((IsEnabled(@"hideCommentSection_enabled")) && ([self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_teaser"] 
+    || [self.accessibilityIdentifier isEqualToString:@"id.ui.comments_entry_point_simplebox"] 
+    || [self.accessibilityIdentifier isEqualToString:@"id.ui.video_metadata_carousel"] 
+    || [self.accessibilityIdentifier isEqualToString:@"id.ui.carousel_header"])) {
         self.hidden = YES;
         self.opaque = YES;
         self.userInteractionEnabled = NO;
@@ -795,6 +915,7 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
+// Hide Shorts Cells - @MiRO92 & @arichorn
 %hook YTAsyncCollectionView
 - (id)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = %orig;
@@ -803,95 +924,66 @@ static void replaceTab(YTIGuideResponse *response) {
         _ASCollectionViewCell *cell = %orig;
         if ([cell respondsToSelector:@selector(node)]) {
             NSString *idToRemove = [[cell node] accessibilityIdentifier];
-            
-            // Hide Community Posts
-            if (IsEnabled(@"hideCommunityPosts_enabled") && ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound || [idToRemove rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound)) {
-                [self removeCellsAtIndexPath:indexPath];
+
+            if (IsEnabled(@"hideShortsCells_enabled")) {
+                if ([idToRemove isEqualToString:@"eml.shorts-video-item"] ||
+                    [idToRemove isEqualToString:@"eml.shelf_header"] ||
+                    [idToRemove isEqualToString:@"statement_banner.view"] ||
+                    [idToRemove isEqualToString:@"compact.view"] ||
+                    [idToRemove isEqualToString:@"eml.inline_shorts"]) {
+                    [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
+                }
+            }
+
+            // Hide Community Posts            
+            if (IsEnabled(@"hideCommunityPosts_enabled")) {
+                if ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound ||
+                    [idToRemove rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound) {
+                    [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
+                }
             }
         }
     }
     return cell;
 }
 %new
-- (void)removeCellsAtIndexPath:(NSIndexPath *)indexPath {
+- (void)removeShortsAndFeaturesAdsAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteItemsAtIndexPaths:@[indexPath]];
 }
-%end
 
-// Hide Shorts Cells - @arichorn
-%hook _ASDisplayView
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = %orig;
-
-    NSString *idToRemove = cell.reuseIdentifier;
-    if (IsEnabled(@"hideShortsCells_enabled") && ([idToRemove isEqualToString:@"eml.shorts-grid"] 
-    || [idToRemove isEqualToString:@"eml.inline_shorts"] 
-    || [idToRemove isEqualToString:@"eml.shorts-video-item"] 
-    || [idToRemove isEqualToString:@"eml.shelf_header"])) {
-        UIResponder *nextResponder = self.nextResponder;
-        while (nextResponder && ![nextResponder isKindOfClass:NSClassFromString(@"UICollectionViewController")]) {
-            nextResponder = nextResponder.nextResponder;
-        }
-        if ([nextResponder respondsToSelector:@selector(removeCellsAtIndexPath:)]) {
-            [nextResponder performSelector:@selector(removeCellsAtIndexPath:) withObject:indexPath];
-        }
-    }
-    return cell;
-}
 %end
 
 // Hide the (Download Button / Remix Button) under the Video Player - @arichorn
 %hook _ASDisplayView
 - (id)initWithElement:(ELMElement *)element {
     _ASDisplayView *result = (_ASDisplayView *)%orig;
-
-    BOOL hideAddToOfflineButtonEnabled = IsEnabled(@"hideAddToOfflineButton_enabled");
-    BOOL hideRemixButtonEnabled = IsEnabled(@"hideRemixButton_enabled");
     NSString *identifier = [element valueForKey:@"identifier"];
 
-    [self findCellContainingButton:(UIButton *)result];
-
-    if ((hideAddToOfflineButtonEnabled && [identifier isEqualToString:@"id.ui.add_to.offline.button"]) ||
-        (hideRemixButtonEnabled && [identifier isEqualToString:@"id.video.remix.button"])) {
-
-        _ASDisplayView *cell = (_ASDisplayView *)[self findCellContainingButton:(UIButton *)result];
-        if (cell != nil && [identifier containsString:@"ELMContainerNode-View"]) {
-            NSRange range = [identifier rangeOfString:@"id.ui.add_to.offline.button"];
-            if (range.location != NSNotFound) {
-                // NSString *subIdentifier = [identifier substringWithRange:range];
-                // If you intend to use subIdentifier later, you can uncomment the above line. (uYouPlusExtra)
-            }
-        }
+    if (IsEnabled(@"hideAddToOfflineButton_enabled") && [identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
+        CGRect frame = result.frame;
+        frame.size = CGSizeZero;
+        result.frame = frame;
+        [result removeFromSuperview];
+        result.alpha = 0.0;
+    }
+    if (IsEnabled(@"hideRemixButton_enabled") && [identifier isEqualToString:@"id.video.remix.button"]) {
+        CGRect frame = result.frame;
+        frame.size = CGSizeZero;
+        result.frame = frame;
+        [result removeFromSuperview];
+        result.alpha = 0.0;
     }
     return result;
-}
-- (id)findCellContainingButton:(UIButton *)button {
-    UIView *superView = button.superview;
-    while (superView != nil) {
-        if ([superView isKindOfClass:[UIView class]]) {
-            return superView;
-        }
-        superView = superView.superview;
-    }
-    return nil;
 }
 %end
 
 // Hide the (Remix Button) under the Video Player - Legacy Version - @arichorn
 %hook YTISlimMetadataButtonSupportedRenderers
 - (id)slimButton_buttonRenderer {
-    if (IsEnabled(@"hideRemixButton_enabled") && [self shouldHideButton]) {
+    if (IsEnabled(@"hideRemixButton_enabled") && [self respondsToSelector:@selector(shouldHideButton)] && [self shouldHideButton]) {
         return nil;
     }
     return %orig;
-}
-- (BOOL)shouldHideButton {
-    id buttonRenderer = [self slimMetadataButtonRenderer];
-    if ([buttonRenderer respondsToSelector:@selector(valueForKey:)]) {
-        NSString *targetId = [buttonRenderer valueForKey:@"target_id"];
-        return [targetId isEqualToString:@"shorts-creation-on-vod_watch"];
-    }
-    return NO;
 }
 - (id)slimMetadataButtonRenderer {
     id renderer = %orig;
@@ -902,6 +994,9 @@ static void replaceTab(YTIGuideResponse *response) {
         }
     }
     return renderer;
+}
+- (BOOL)slimButton_isOfflineButton {
+    return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
 }
 %end
 
@@ -1203,6 +1298,9 @@ static void replaceTab(YTIGuideResponse *response) {
     // dlopen([[NSString stringWithFormat:@"%@/Frameworks/uYou.dylib", [[NSBundle mainBundle] bundlePath]] UTF8String], RTLD_LAZY);
 
     %init;
+    if (IsEnabled(@"defaultYouTubeLogo_enabled")) {
+        %init(gDefaultYouTubeLogo);
+    }
     if (IsEnabled(@"reExplore_enabled")) {
         %init(gReExplore);
     }
@@ -1311,6 +1409,9 @@ static void replaceTab(YTIGuideResponse *response) {
 
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"defaultYouTubeLogo_enabled"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"defaultYouTubeLogo_enabled"];
+    }
     if (![allKeys containsObject:@"hidePlayNextInQueue_enabled"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hidePlayNextInQueue_enabled"];
     }
