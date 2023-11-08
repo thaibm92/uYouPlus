@@ -1563,6 +1563,16 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - Miscellaneous
     YTSettingsSectionItem *miscellaneousGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"MISCELLANEOUS") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"uYouPlusExtra Logo")
+                titleDescription:LOC(@"Toggle this to replace the YouTube Logo with the uYouPlusExtra Logo. App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"ytStartupAnimation_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"defaultYouTubeLogo_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
                 titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
                 accessibilityIdentifier:nil
