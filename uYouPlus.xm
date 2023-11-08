@@ -1409,9 +1409,6 @@ static void replaceTab(YTIGuideResponse *response) {
 
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"defaultYouTubeLogo_enabled"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"defaultYouTubeLogo_enabled"];
-    }
     if (![allKeys containsObject:@"hidePlayNextInQueue_enabled"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hidePlayNextInQueue_enabled"];
     }
