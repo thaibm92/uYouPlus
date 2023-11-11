@@ -800,7 +800,16 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-// Hide Watermark
+// Hide Channel Watermark
+%hook YTMainAppVideoPlayerOverlayView
+- (BOOL)isWatermarkEnabled {
+    if (IsEnabled(@"hideChannelWatermark_enabled")) {
+        return NO;
+    }
+    return %orig;
+}
+%end
+// Hide Channel Watermark (for Backwards Compatibility)
 %hook YTAnnotationsViewController
 - (void)loadFeaturedChannelWatermark {
     if (IsEnabled(@"hideChannelWatermark_enabled")) {}
