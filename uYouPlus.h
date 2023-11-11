@@ -45,6 +45,10 @@
 @end
 
 // uYouPlus
+@interface YTLogoHeaderViewController : UIView
+@property(readonly, nonatomic) long long pageStyle;
+@end
+
 @interface YTChipCloudCell : UIView
 @end
 
@@ -96,7 +100,6 @@
 
 @interface YTISlimMetadataButtonSupportedRenderers : NSObject
 - (id)slimButton_buttonRenderer;
-- (BOOL)shouldHideButton;
 - (id)slimMetadataButtonRenderer;
 @end
 
