@@ -146,22 +146,34 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 // uYouPlusExtra Logo - #183
 %group gDefaultYouTubeLogo
-%hook UIImageView
-- (void)setImage:(UIImage *)image {
-    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-    
-    if ([NSStringFromClass([image class]) isEqualToString:@"UIImage"] &&
-        [NSStringFromCGSize(image.size) isEqualToString:@"{122, 48}"] &&
-        [NSStringFromCGRect(self.bounds) isEqualToString:@"{{0, 0}, {122, 48}}"]) {
-        
-        if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo_dark"]) {
-            image = [UIImage imageWithContentsOfFile:customDarkLogo];
-        } else if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo"]) {
-            image = [UIImage imageWithContentsOfFile:customLightLogo];
+%hook YTLogoHeaderViewController
+- (void)setLogoView:(id)logoView {
+    if ([logoView isKindOfClass:[UIImageView class]]) {
+        UIImageView *imageView = (UIImageView *)logoView;
+
+        if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
+            NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
+            if (self.pageStyle == 1) {
+                imageView.image = [UIImage imageWithContentsOfFile:customDarkLogo];
+            }
+        }
+        else if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
+            NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
+            if (self.pageStyle == 0) {
+                imageView.image = [UIImage imageWithContentsOfFile:customLightLogo];
+            }
         }
     }
-    %orig(image);
+    %orig;
+}
+%end
+%end
+
+%group gPremiumYouTubeLogo
+%hook YTLogoHeaderViewController
+- (void)setPremiumLogo:(BOOL)isPremiumLogo {
+    isPremiumLogo = YES;
+    %orig;
 }
 %end
 %end
@@ -895,7 +907,9 @@ static void replaceTab(YTIGuideResponse *response) {
         self.hidden = YES;
         self.opaque = YES;
         self.userInteractionEnabled = NO;
-        [self sizeToFit];
+        CGRect removeGap = self.frame;
+        removeGap.size.height = 0;
+        self.frame = removeGap;
         [self setNeedsLayout];
         [self removeFromSuperview];
     }
@@ -955,46 +969,33 @@ static void replaceTab(YTIGuideResponse *response) {
 
 // Hide the (Download Button / Remix Button) under the Video Player - @arichorn
 %hook _ASDisplayView
-- (id)initWithElement:(ELMElement *)element {
-    _ASDisplayView *result = (_ASDisplayView *)%orig;
-    NSString *identifier = [element valueForKey:@"identifier"];
+- (void)layoutSubviews {
+    %orig;
+    BOOL hideAddToOfflineButton = IsEnabled(@"hideAddToOfflineButton_enabled");
+    BOOL hideRemixButton = IsEnabled(@"hideRemixButton_enabled");
 
-    if (IsEnabled(@"hideAddToOfflineButton_enabled") && [identifier isEqualToString:@"id.ui.add_to.offline.button"]) {
-        CGRect frame = result.frame;
-        frame.size = CGSizeZero;
-        result.frame = frame;
-        [result removeFromSuperview];
-        result.alpha = 0.0;
+    for (UIView *subview in self.subviews) {
+        if ([subview.accessibilityIdentifier isEqualToString:@"id.ui.add_to.offline.button"]) {
+            subview.hidden = hideAddToOfflineButton;
+        } else if ([subview.accessibilityIdentifier isEqualToString:@"id.video.remix.button"]) {
+            subview.hidden = hideRemixButton;
+        }
     }
-    if (IsEnabled(@"hideRemixButton_enabled") && [identifier isEqualToString:@"id.video.remix.button"]) {
-        CGRect frame = result.frame;
-        frame.size = CGSizeZero;
-        result.frame = frame;
-        [result removeFromSuperview];
-        result.alpha = 0.0;
-    }
-    return result;
 }
 %end
 
 // Hide the (Remix Button) under the Video Player - Legacy Version - @arichorn
 %hook YTISlimMetadataButtonSupportedRenderers
+
+/*
 - (id)slimButton_buttonRenderer {
     if (IsEnabled(@"hideRemixButton_enabled") && [self respondsToSelector:@selector(shouldHideButton)] && [self shouldHideButton]) {
         return nil;
     }
     return %orig;
 }
-- (id)slimMetadataButtonRenderer {
-    id renderer = %orig;
-    if ([renderer respondsToSelector:@selector(valueForKey:)]) {
-        NSString *targetId = [renderer valueForKey:@"target_id"];
-        if ([targetId isEqualToString:@"shorts-creation-on-vod_watch"]) {
-            return nil;
-        }
-    }
-    return renderer;
-}
+*/
+
 - (BOOL)slimButton_isOfflineButton {
     return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
 }
@@ -1300,6 +1301,9 @@ static void replaceTab(YTIGuideResponse *response) {
     %init;
     if (IsEnabled(@"defaultYouTubeLogo_enabled")) {
         %init(gDefaultYouTubeLogo);
+    }
+    if (IsEnabled(@"premiumYouTubeLogo_enabled")) {
+        %init(gPremiumYouTubeLogo);
     }
     if (IsEnabled(@"reExplore_enabled")) {
         %init(gReExplore);
