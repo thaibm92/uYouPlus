@@ -802,7 +802,7 @@ extern NSBundle *uYouPlusBundle();
         }
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
             NSArray <YTSettingsSectionItem *> *rows = @[
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"Latest Version" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"v18.35.4" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
                     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"versionSpoofer"];
                     [settingsViewController reloadData];
                     return YES;
@@ -1569,6 +1569,16 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"ytStartupAnimation_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"defaultYouTubeLogo_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"YouTube Premium Logo")
+                titleDescription:LOC(@"Toggle this to use the official YouTube Premium Logo. App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"premiumYouTubeLogo_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"premiumYouTubeLogo_enabled"];
                     return YES;
                 }
                 settingItemId:0],
