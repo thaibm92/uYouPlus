@@ -284,8 +284,8 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Videos in Fullscreen")
-                titleDescription:LOC(@"Hide video player's videos whenever in fullscreen.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Suggested Videos in Fullscreen")
+                titleDescription:LOC(@"Hide video player's suggested videos whenever in fullscreen.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"noVideosInFullscreen_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
