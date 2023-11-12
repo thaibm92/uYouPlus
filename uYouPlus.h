@@ -40,6 +40,15 @@
 #define YT_NAME @"YouTube"
 #define DEFAULT_RATE 2.0f // YTSpeed
 
+@interface YTSingleVideoController ()
+- (float)playbackRate;
+- (void)setPlaybackRate:(float)arg1;
+@end
+
+@interface YTPlayerViewController ()
+- (YTSingleVideoController *)activeVideo;
+@end
+
 // IAmYouTube
 @interface SSOConfiguration : NSObject
 @end
