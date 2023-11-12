@@ -41,6 +41,18 @@ static BOOL IsEnabled(NSString *key) {
 
 //
 # pragma mark - uYou's patches
+// Crash fix for >= 18.43.4 (https://github.com/iCrazeiOS/uYouCrashFix)
+%hook YTPlayerViewController
+%new
+-(float)currentPlaybackRateForVarispeedSwitchController:(id)arg1 {
+	return [[self activeVideo] playbackRate];
+}
+%new
+-(void)varispeedSwitchController:(id)arg1 didSelectRate:(float)arg2 {
+	[[self activeVideo] setPlaybackRate:arg2];
+}
+%end
+
 // Workaround for qnblackcat/uYouPlus#10
 %hook UIViewController
 - (UITraitCollection *)traitCollection {
@@ -127,20 +139,6 @@ static void repositionCreateTab(YTIGuideResponse *response) {
         [artworkImageView.rightAnchor constraintEqualToAnchor:artworkImageView.superview.rightAnchor constant:-16].active = YES;
     }
     return imageView;
-}
-%end
-
-// Fix uYou crashing in YouTube 18.43.4 and higher
-// uYouCrashFix - https://github.com/iCrazeiOS/uYouCrashFix
-%hook YTPlayerViewController
-%new
--(float)currentPlaybackRateForVarispeedSwitchController:(id)arg1 {
-	return [[self activeVideo] playbackRate];
-}
-
-%new
--(void)varispeedSwitchController:(id)arg1 didSelectRate:(float)arg2 {
-	[[self activeVideo] setPlaybackRate:arg2];
 }
 %end
 
@@ -993,19 +991,23 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-// Hide the (Remix Button) under the Video Player - Legacy Version - @arichorn
+// Hide the (Download) Button under the Video Player - Legacy Version - @arichorn
 %hook YTISlimMetadataButtonSupportedRenderers
-
-/*
-- (id)slimButton_buttonRenderer {
-    if (IsEnabled(@"hideRemixButton_enabled") && [self respondsToSelector:@selector(shouldHideButton)] && [self shouldHideButton]) {
-        return nil;
-    }
-    return %orig;
-}
-*/
-
 - (BOOL)slimButton_isOfflineButton {
+    return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
+}
+%end
+%hook YTISlimMetadataButtonRenderer
+- (BOOL)isOfflineButtonPlaceholder {
+    return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
+}
+- (BOOL)hasIsOfflineButtonPlaceholder {
+    return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
+}
+- (BOOL)hasOfflineProgressText {
+    return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
+}
+- (BOOL)hasOfflineCompleteText {
     return IsEnabled(@"hideAddToOfflineButton_enabled") ? NO : %orig;
 }
 %end
