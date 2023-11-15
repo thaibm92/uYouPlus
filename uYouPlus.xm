@@ -168,7 +168,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %end
 
 %group gPremiumYouTubeLogo
-%hook YTLogoHeaderViewController
+%hook YTHeaderLogoController
 - (void)setPremiumLogo:(BOOL)isPremiumLogo {
     isPremiumLogo = YES;
     %orig;
