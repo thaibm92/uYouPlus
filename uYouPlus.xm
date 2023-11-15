@@ -144,7 +144,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 // uYouPlusExtra Logo - #183
 %group gDefaultYouTubeLogo
-%hook YTLogoHeaderViewController
+%hook YTHeaderLogoController
 - (void)setLogoView:(id)logoView {
     if ([logoView isKindOfClass:[UIImageView class]]) {
         UIImageView *imageView = (UIImageView *)logoView;
