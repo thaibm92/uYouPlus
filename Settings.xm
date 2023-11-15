@@ -349,6 +349,45 @@ extern NSBundle *uYouPlusBundle();
     }];
     [sectionItems addObject:shortsControlOverlayGroup];
 
+# pragma mark - Video Player Buttons
+    YTSettingsSectionItem *videoPlayerButtonsGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"Video Player Buttons Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+        NSArray <YTSettingsSectionItem *> *rows = @[
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
+                titleDescription:LOC(@"Hides the Download Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideAddToOfflineButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideAddToOfflineButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
+                titleDescription:LOC(@"Hides the Remix Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideRemixButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideRemixButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
+                titleDescription:LOC(@"Hides the Comment Section below the player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideCommentSection_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideCommentSection_enabled"];
+                    return YES;
+                }
+                settingItemId:0]
+        ];        
+        YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"Video Player Buttons Options") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
+        [settingsViewController pushViewController:picker];
+        return YES;
+    }];
+    [sectionItems addObject:videoPlayerButtonsGroup];
+
 # pragma mark - App Settings Overlay Options
     YTSettingsSectionItem *appSettingsOverlayGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"App Settings Overlay Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
@@ -1583,6 +1622,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+	    [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide YouTube Logo")
+                titleDescription:LOC(@"Toggle this to hide the YouTube Logo in the YouTube App.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideYouTubeLogo_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideYouTubeLogo_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
                 titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
                 accessibilityIdentifier:nil
@@ -1619,16 +1668,6 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"ytNoModernUI_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"ytNoModernUI_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-	    [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide YouTube Logo")
-                titleDescription:LOC(@"Toggle this to hide the YouTube Logo in the YouTube App.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideYouTubeLogo_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideYouTubeLogo_enabled"];
                     return YES;
                 }
                 settingItemId:0],
@@ -1689,36 +1728,6 @@ extern NSBundle *uYouPlusBundle();
                 switchOn:IsEnabled(@"hideChannelHeaderLinks_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideChannelHeaderLinks_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
-                titleDescription:LOC(@"Hides the Download Button under the video player.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideAddToOfflineButton_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideAddToOfflineButton_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
-                titleDescription:LOC(@"Hides the Remix Button under the video player.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideRemixButton_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideRemixButton_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the comment section under player")
-                titleDescription:LOC(@"Hides the Comment Section below the player.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideCommentSection_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideCommentSection_enabled"];
                     return YES;
                 }
                 settingItemId:0],
