@@ -1405,6 +1405,9 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"ytNoModernUI_enabled")) {
         %init(gYTNoModernUI);
     }
+    if (IsEnabled(@"disableAmbientMode_enabled")) {
+        %init(gDisableAmbientMode);
+    }
     if (IsEnabled(@"disableAccountSection_enabled")) {
         %init(gDisableAccountSection);
     }
