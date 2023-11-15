@@ -1662,6 +1662,16 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Disable Ambient Mode")
+                titleDescription:LOC(@"When Enabled, this will Disable the functionality of Ambient Mode in the Video Player and even in Fullscreen. App restart is required.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"disableAmbientMode_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"disableAmbientMode_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Remove the Modern UI (YTNoModernUI)")
                 titleDescription:LOC(@"When Enabled, this will remove any modern element added to YouTube such as Rounded Buttons, Rounded Hints, Fixes LowContrastMode functionality. App restart is required.")
                 accessibilityIdentifier:nil
