@@ -165,12 +165,47 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     %orig;
 }
 %end
+%hook UIImage
++ (UIImage *)imageNamed:(NSString *)name {
+    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
+    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
+    
+    if ([name isEqualToString:@"youtube_logo_dark"]) {
+        return [UIImage imageWithContentsOfFile:customDarkLogo];
+    } else if ([name isEqualToString:@"youtube_logo"]) {
+        return [UIImage imageWithContentsOfFile:customLightLogo];
+    }
+    return %orig;
+}
+%end
+%hook UIImageView
+- (void)setImage:(UIImage *)image {
+    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
+    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
+    
+    if ([NSStringFromClass([image class]) isEqualToString:@"UIImage"] &&
+        [NSStringFromCGSize(image.size) isEqualToString:@"{122, 48}"] &&
+        [NSStringFromCGRect(self.bounds) isEqualToString:@"{{0, 0}, {122, 48}}"]) {
+        
+        if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo_dark"]) {
+            image = [UIImage imageWithContentsOfFile:customDarkLogo];
+        } else if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo"]) {
+            image = [UIImage imageWithContentsOfFile:customLightLogo];
+        }
+    }
+    %orig(image);
+}
+%end
 %end
 
 %group gPremiumYouTubeLogo
 %hook YTHeaderLogoController
 - (void)setPremiumLogo:(BOOL)isPremiumLogo {
     isPremiumLogo = YES;
+    %orig;
+}
+- (void)setTopbarLogoRenderer:(id)renderer {
+    [renderer setEnabled:NO];
     %orig;
 }
 %end
