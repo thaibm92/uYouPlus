@@ -205,8 +205,6 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     %orig;
 }
 - (void)setTopbarLogoRenderer:(id)renderer {
-    [renderer setEnabled:NO];
-    %orig;
 }
 %end
 %end
