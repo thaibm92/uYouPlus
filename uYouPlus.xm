@@ -859,6 +859,12 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     return %orig;
 }
+- (void)setFeaturedChannelWatermarkImageView:(id)imageView {
+    if (IsEnabled(@"hideChannelWatermark_enabled")) {
+        return;
+    }
+    %orig(imageView);
+}
 %end
 // Hide Channel Watermark (for Backwards Compatibility)
 %hook YTAnnotationsViewController
@@ -1009,10 +1015,9 @@ static void replaceTab(YTIGuideResponse *response) {
                 }
             }
 
-            // Hide Community Posts            
+// Hide Community Posts            
             if (IsEnabled(@"hideCommunityPosts_enabled")) {
-                if ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound ||
-                    [idToRemove rangeOfString:@"id.ui.backstage.original_post"].location != NSNotFound) {
+                if ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
                     [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
                 }
             }
@@ -1274,7 +1279,7 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-%hook YTFullScreenEngagementOverlayViewController
+%hook YTFullScreenEngagementOverlayController
 - (void)setRelatedVideosVisible:(BOOL)visible {
 }
 - (BOOL)relatedVideosPeekingEnabled {
@@ -1332,12 +1337,26 @@ static void replaceTab(YTIGuideResponse *response) {
 %end
 %end
 
-// Hide Subscriptions Notification Badge - @arichorn
+// Hide Indicators - @Dayanch96 & @arichorn
 %group gHideSubscriptionsNotificationBadge
 %hook YTPivotBarIndicatorView
 - (void)didMoveToWindow {
     [self setHidden:YES];
     %orig();
+}
+- (void)setFillColor:(id)arg1 {
+    if (kRemoveIndicators) {
+        %orig([UIColor clearColor]);
+    } else {
+        %orig(arg1);
+    }
+}
+- (void)setBorderColor:(id)arg1 {
+    if (kRemoveIndicators) {
+        %orig([UIColor clearColor]);
+    } else {
+        %orig(arg1);
+    }
 }
 %end
 %end
