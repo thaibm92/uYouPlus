@@ -1792,8 +1792,8 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Subscriptions Notification Badge")
-                titleDescription:LOC(@"Hides the Red Notification Badge shown in the Pivot Bar of the Subscriptions Tab.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide Indicators")
+                titleDescription:LOC(@"Hides all Indicators that were in the App.")
                 accessibilityIdentifier:nil
                 switchOn:IsEnabled(@"hideSubscriptionsNotificationBadge_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
