@@ -204,6 +204,9 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     isPremiumLogo = YES;
     %orig;
 }
+- (BOOL)isPremiumLogo {
+    return YES;
+}
 - (void)setTopbarLogoRenderer:(id)renderer {
 }
 %end
@@ -507,11 +510,11 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 // YTNoTracking - https://github.com/arichorn/YTNoTracking/
 %hook YTICompactLinkRenderer
-- (BOOL)hasTrackingParams { return NO; }
++ (BOOL)hasTrackingParams { return NO; }
 %end
 
 %hook YTIReelPlayerOverlayRenderer
-- (BOOL)hasTrackingParams { return NO; }
++ (BOOL)hasTrackingParams { return NO; }
 %end
 
 // YTNoPaidPromo: https://github.com/PoomSmart/YTNoPaidPromo
