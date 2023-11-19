@@ -1395,18 +1395,10 @@ static void replaceTab(YTIGuideResponse *response) {
     %orig();
 }
 - (void)setFillColor:(id)arg1 {
-    if (kRemoveIndicators) {
-        %orig([UIColor clearColor]);
-    } else {
-        %orig(arg1);
-    }
+    %orig([UIColor clearColor]);
 }
 - (void)setBorderColor:(id)arg1 {
-    if (kRemoveIndicators) {
-        %orig([UIColor clearColor]);
-    } else {
-        %orig(arg1);
-    }
+    %orig([UIColor clearColor]);
 }
 %end
 %end
