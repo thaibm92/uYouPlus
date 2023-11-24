@@ -1045,7 +1045,25 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-// Hide Shorts Cells - @MiRO92 & @arichorn
+// Hide Shorts Cells - @PoomSmart & @iCrazeiOS
+%hook YTIElementRenderer
+- (NSData *)elementData {
+    NSString *description = [self description];
+    if (IsEnabled(@"hideShortsCells_enabled")) {
+        if ([description containsString:@"shorts_shelf.eml"] ||
+            [description containsString:@"#shorts"] ||
+            [description containsString:@"shorts_video_cell.eml"] ||
+            [description containsString:@"6Shorts"]) {
+            if (![description containsString:@"history*"]) {
+                return nil;
+            }
+        }
+    }
+    return %orig;
+}
+%end
+
+// Hide Community Posts - @michael-winay & @arichorn
 %hook YTAsyncCollectionView
 - (id)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = %orig;
@@ -1054,18 +1072,6 @@ static void replaceTab(YTIGuideResponse *response) {
         _ASCollectionViewCell *cell = %orig;
         if ([cell respondsToSelector:@selector(node)]) {
             NSString *idToRemove = [[cell node] accessibilityIdentifier];
-
-            if (IsEnabled(@"hideShortsCells_enabled")) {
-                if ([idToRemove isEqualToString:@"eml.shorts-video-item"] ||
-                    [idToRemove isEqualToString:@"eml.shelf_header"] ||
-                    [idToRemove isEqualToString:@"statement_banner.view"] ||
-                    [idToRemove isEqualToString:@"compact.view"] ||
-                    [idToRemove isEqualToString:@"eml.inline_shorts"]) {
-                    [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
-                }
-            }
-
-// Hide Community Posts            
             if (IsEnabled(@"hideCommunityPosts_enabled")) {
                 if ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
                     [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
@@ -1079,7 +1085,6 @@ static void replaceTab(YTIGuideResponse *response) {
 - (void)removeShortsAndFeaturesAdsAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteItemsAtIndexPaths:@[indexPath]];
 }
-
 %end
 
 // Hide the (Remix / Thanks / Download / Clip / Save) Buttons under the Video Player - @arichorn
