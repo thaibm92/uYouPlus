@@ -145,59 +145,32 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 // uYouPlusExtra Logo - #183
 %group gDefaultYouTubeLogo
 %hook YTHeaderLogoController
-- (void)setLogoView:(id)logoView {
-    if ([logoView isKindOfClass:[UIImageView class]]) {
-        UIImageView *imageView = (UIImageView *)logoView;
-
-        if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
-            NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-            if (self.pageStyle == 1) {
-                imageView.image = [UIImage imageWithContentsOfFile:customDarkLogo];
-            }
-        }
-        else if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
-            NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-            if (self.pageStyle == 0) {
-                imageView.image = [UIImage imageWithContentsOfFile:customLightLogo];
-            }
-        }
+%new
+- (void)customLogo {
+    if (self.pageStyle == 0) {
+        UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
+        customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo.png"];
+        [self.view addSubview:customLogoView];
+    } else if (self.pageStyle == 1) {
+        UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
+        customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png"];
+        [self.view addSubview:customLogoView];
     }
+}
+%end
+
+// Remove Original YouTube Logo - this prevents the custom Logo from Overlapping with the Original
+%hook YTNavigationBarTitleView
+- (void)layoutSubviews {
     %orig;
-}
-%end
-%hook UIImage
-+ (UIImage *)imageNamed:(NSString *)name {
-    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-    
-    if ([name isEqualToString:@"youtube_logo_dark"]) {
-        return [UIImage imageWithContentsOfFile:customDarkLogo];
-    } else if ([name isEqualToString:@"youtube_logo"]) {
-        return [UIImage imageWithContentsOfFile:customLightLogo];
+    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
+        self.subviews[1].hidden = YES;
     }
-    return %orig;
-}
-%end
-%hook UIImageView
-- (void)setImage:(UIImage *)image {
-    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-    
-    if ([NSStringFromClass([image class]) isEqualToString:@"UIImage"] &&
-        [NSStringFromCGSize(image.size) isEqualToString:@"{122, 48}"] &&
-        [NSStringFromCGRect(self.bounds) isEqualToString:@"{{0, 0}, {122, 48}}"]) {
-        
-        if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo_dark"]) {
-            image = [UIImage imageWithContentsOfFile:customDarkLogo];
-        } else if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo"]) {
-            image = [UIImage imageWithContentsOfFile:customLightLogo];
-        }
-    }
-    %orig(image);
 }
 %end
 %end
 
+// YouTube Premium Logo - @arichorn - this doesn't always function
 %group gPremiumYouTubeLogo
 %hook YTHeaderLogoController
 - (void)setPremiumLogo:(BOOL)isPremiumLogo {
