@@ -352,6 +352,26 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - Video Player Buttons
     YTSettingsSectionItem *videoPlayerButtonsGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"Video Player Buttons Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
+                titleDescription:LOC(@"Hides the Remix Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideRemixButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideRemixButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Thanks Button under player")
+                titleDescription:LOC(@"Hides the Thanks Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideThanksButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideThanksButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Download Button under player")
                 titleDescription:LOC(@"Hides the Download Button under the video player.")
                 accessibilityIdentifier:nil
@@ -362,12 +382,22 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0],
 
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
-                titleDescription:LOC(@"Hides the Remix Button under the video player.")
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Clip Button under player")
+                titleDescription:LOC(@"Hides the Clip Button under the video player.")
                 accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideRemixButton_enabled")
+                switchOn:IsEnabled(@"hideClipButton_enabled")
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideRemixButton_enabled"];
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideClipButton_enabled"];
+                    return YES;
+                }
+                settingItemId:0],
+
+            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Save to playlist Button under player")
+                titleDescription:LOC(@"Hides the Save to playlist Button under the video player.")
+                accessibilityIdentifier:nil
+                switchOn:IsEnabled(@"hideSaveToPlaylistButton_enabled")
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideSaveToPlaylistButton_enabled"];
                     return YES;
                 }
                 settingItemId:0],
