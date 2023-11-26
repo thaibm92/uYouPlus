@@ -15,6 +15,9 @@ static int GetSelection(NSString *key) {
 static int contrastMode() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"lcm"];
 }
+static int youtubeLogo() {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"ytlogo"];
+}
 static int appVersionSpoofer() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"versionSpoofer"];
 }
