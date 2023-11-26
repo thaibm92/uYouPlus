@@ -1689,12 +1689,11 @@ extern NSBundle *uYouPlusBundle();
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"YouTube Logo Customizer")
                 titleDescription:LOC(@"Press this to change and select your perferred YouTube Logo. App restart is required.")
                 accessibilityIdentifier:nil
-                switchOn:@""
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL disabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:disabled forKey:@""];
                     return YES;
                 }
-                settingItemId:0], youtubeLogoSection];
+                settingItemId:1], youtubeLogoSection];
 
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
                 titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
