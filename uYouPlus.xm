@@ -180,38 +180,6 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %end
 %end
 
-// uYouPlusExtra Logo - @arichorn & @dayanch96 - #183
-%group gCustomYouTubeLogo
-%hook YTHeaderLogoController
-- (id)logoView {
-    id originalLogoView = %orig; 
-    if (originalLogoView) {
-        if (self.pageStyle == 0) {
-            [self customLogoWithImageName:@"youtube_logo.png"];
-        } else if (self.pageStyle == 1) {
-            [self customLogoWithImageName:@"youtube_logo_dark.png"];
-        }
-    } 
-    return originalLogoView;
-}
-%new
-- (void)customLogoWithImageName:(NSString *)imageName {
-    UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
-    customLogoView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Library/Application Support/uYouPlus.bundle/%@", imageName]];
-    UIView *logoView = [self valueForKey:@"logoView"];
-    [logoView addSubview:customLogoView];
-}
-%end
-%hook YTNavigationBarTitleView // Hide Original YouTube Logo - this will prevent Overlapping on the custom YouTube Logo
-- (void)layoutSubviews {
-    %orig;
-    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
-        self.subviews[1].hidden = YES;
-    }
-}
-%end
-%end
-
 # pragma mark - Tweaks
 // IAmYouTube - https://github.com/PoomSmart/IAmYouTube/
 %hook YTVersionUtils
@@ -1437,9 +1405,6 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"premiumYouTubeLogo_enabled")) {
         %init(gPremiumYouTubeLogo);
-    }
-    if (IsEnabled(@"customYouTubeLogo_enabled")) {
-        %init(gCustomYouTubeLogo);
     }
     if (IsEnabled(@"reExplore_enabled")) {
         %init(gReExplore);
