@@ -1689,7 +1689,7 @@ extern NSBundle *uYouPlusBundle();
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"YouTube Logo Customizer")
                 titleDescription:LOC(@"Press this to change and select your perferred YouTube Logo. App restart is required.")
                 accessibilityIdentifier:nil
-                switchOff:@""
+                switchOn:@""
                 switchBlock:^BOOL (YTSettingsCell *cell, BOOL disabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:disabled forKey:@""];
                     return YES;
@@ -1884,7 +1884,7 @@ extern NSBundle *uYouPlusBundle();
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"enableVersionSpoofer_enabled"];
                     return YES;
                 }
-                settingItemId:0], versionSpooferSection]];
+                settingItemId:0], versionSpooferSection];
         YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"MISCELLANEOUS") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
         [settingsViewController pushViewController:picker];
         return YES;
