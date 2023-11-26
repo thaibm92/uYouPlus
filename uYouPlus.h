@@ -56,6 +56,7 @@
 // uYouPlus
 @interface YTHeaderLogoController : UIView
 @property(readonly, nonatomic) long long pageStyle;
+- (void)customLogoWithImageName:(NSString *)imageName;
 @end
 
 @interface YTNavigationBarTitleView : UIView
