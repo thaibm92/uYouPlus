@@ -1632,16 +1632,6 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - Miscellaneous
     YTSettingsSectionItem *miscellaneousGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"MISCELLANEOUS") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"uYouPlusExtra Logo")
-                titleDescription:LOC(@"Toggle this to replace the YouTube Logo with the uYouPlusExtra Logo. App restart is required.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"customYouTubeLogo_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"customYouTubeLogo_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"YouTube Premium Logo")
                 titleDescription:LOC(@"Toggle this to use the official YouTube Premium Logo. App restart is required.")
                 accessibilityIdentifier:nil
