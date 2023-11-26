@@ -142,8 +142,46 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-// uYouPlusExtra Logo - #183
-%group gDefaultYouTubeLogo
+// Hide YouTube Logo - @dayanch96
+%group gHideYouTubeLogo
+%hook YTHeaderLogoController
+- (YTHeaderLogoController *)init {
+    return NULL;
+}
+%end
+%hook YTNavigationBarTitleView
+- (void)layoutSubviews {
+    %orig;
+    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
+        self.subviews[1].hidden = YES;
+    }
+}
+%end
+%end
+
+%group gCenterYouTubeLogo
+%hook YTNavigationBarTitleView
+- (BOOL)shouldCenterNavBarTitleView { return YES; }
+%end
+%end
+
+// YouTube Premium Logo - @arichorn - this doesn't always function
+%group gPremiumYouTubeLogo
+%hook YTHeaderLogoController
+- (void)setPremiumLogo:(BOOL)isPremiumLogo {
+    isPremiumLogo = YES;
+    %orig;
+}
+- (BOOL)isPremiumLogo {
+    return YES;
+}
+- (void)setTopbarLogoRenderer:(id)renderer {
+}
+%end
+%end
+
+// uYouPlusExtra Logo - @arichorn & @dayanch96 - #183
+%group gCustomYouTubeLogo
 %hook YTHeaderLogoController
 - (id)logoView {
     id originalLogoView = %orig; 
@@ -164,35 +202,7 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     [logoView addSubview:customLogoView];
 }
 %end
-
-%hook YTNavigationBarTitleView // Hide Original YouTube Logo - this prevents the custom Logo from Overlapping with the Original
-- (void)layoutSubviews {
-    %orig;
-    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
-        self.subviews[1].hidden = YES;
-    }
-}
-%end
-%end
-
-// YouTube Premium Logo - @arichorn - this doesn't always function
-%group gPremiumYouTubeLogo
-%hook YTHeaderLogoController
-- (void)setPremiumLogo:(BOOL)isPremiumLogo {
-    isPremiumLogo = YES;
-    %orig;
-}
-- (BOOL)isPremiumLogo {
-    return YES;
-}
-- (void)setTopbarLogoRenderer:(id)renderer {
-}
-%end
-%end
-
-// Hide YouTube Logo - @dayanch96
-%group gHideYouTubeLogo
-%hook YTHeaderLogoController
+%hook YTHeaderLogoController // Hide Original YouTube Logo - this will prevent Overlapping on the custom YouTube Logo
 - (YTHeaderLogoController *)init {
     return NULL;
 }
@@ -1416,11 +1426,17 @@ static void replaceTab(YTIGuideResponse *response) {
     // dlopen([[NSString stringWithFormat:@"%@/Frameworks/uYou.dylib", [[NSBundle mainBundle] bundlePath]] UTF8String], RTLD_LAZY);
 
     %init;
-    if (IsEnabled(@"defaultYouTubeLogo_enabled")) {
-        %init(gDefaultYouTubeLogo);
+    if (IsEnabled(@"hideYouTubeLogo_enabled")) {
+        %init(gHideYouTubeLogo);
+    }
+    if (IsEnabled(@"centerYouTubeLogo_enabled")) {
+        %init(gCenterYouTubeLogo);
     }
     if (IsEnabled(@"premiumYouTubeLogo_enabled")) {
         %init(gPremiumYouTubeLogo);
+    }
+    if (IsEnabled(@"customYouTubeLogo_enabled")) {
+        %init(gCustomYouTubeLogo);
     }
     if (IsEnabled(@"reExplore_enabled")) {
         %init(gReExplore);
@@ -1466,9 +1482,6 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"stockVolumeHUD_enabled")) {
         %init(gStockVolumeHUD);
-    }
-    if (IsEnabled(@"hideYouTubeLogo_enabled")) {
-        %init(gHideYouTubeLogo);
     }
     if (IsEnabled(@"hideHeatwaves_enabled")) {
         %init(gHideHeatwaves);
