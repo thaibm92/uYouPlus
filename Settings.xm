@@ -583,6 +583,57 @@ extern NSBundle *uYouPlusBundle();
             return YES;
         }];
 
+# pragma mark - YouTubeLogo
+    YTSettingsSectionItem *youtubeLogoSection = [YTSettingsSectionItemClass itemWithTitle:@"YouTube Logo Selector"
+        accessibilityIdentifier:nil
+        detailTextBlock:^NSString *() {
+            switch (youtubeLogo()) {
+                case 0:
+                    return @"YouTube Logo (Hidden)";
+                case 2:
+                    return @"YouTube Logo (Centered)";
+                case 3:
+                    return @"YouTube Logo (Premium)";
+                case 4:
+                    return @"YouTube Logo (uYouPlusExtra)";
+                case 1:
+                default:
+                    return @"YouTube Logo (Default)";
+            }
+        }
+        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+            NSArray <YTSettingsSectionItem *> *rows = @[
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (Hidden)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"ytlogo"];
+                    [settingsViewController reloadData];
+                    return YES;
+                }],
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (Default)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"ytlogo"];
+                    [settingsViewController reloadData];
+                    return YES;
+                }],
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (Centered)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"ytlogo"];
+                    [settingsViewController reloadData];
+                    return YES;
+                }],
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (Premium)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"ytlogo"];
+                    [settingsViewController reloadData];
+                    return YES;
+                }],
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (uYouPlusExtra)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:@"ytlogo"];
+                    [settingsViewController reloadData];
+                    return YES
+                }]
+            ];
+            YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"YouTube Logo Selector") pickerSectionTitle:nil rows:rows selectedItemIndex:youtubeLogo() parentResponder:[self parentResponder]];
+            [settingsViewController pushViewController:picker];
+            return YES;
+        }];
+
 # pragma mark - VersionSpoofer
     YTSettingsSectionItem *versionSpooferSection = [YTSettingsSectionItemClass itemWithTitle:@"Version Spoofer Picker"
         accessibilityIdentifier:nil
@@ -1632,36 +1683,6 @@ extern NSBundle *uYouPlusBundle();
 # pragma mark - Miscellaneous
     YTSettingsSectionItem *miscellaneousGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"MISCELLANEOUS") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"uYouPlusExtra Logo")
-                titleDescription:LOC(@"Toggle this to replace the YouTube Logo with the uYouPlusExtra Logo. App restart is required.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"defaultYouTubeLogo_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"defaultYouTubeLogo_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"YouTube Premium Logo")
-                titleDescription:LOC(@"Toggle this to use the official YouTube Premium Logo. App restart is required.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"premiumYouTubeLogo_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"premiumYouTubeLogo_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
-	    [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide YouTube Logo")
-                titleDescription:LOC(@"Toggle this to hide the YouTube Logo in the YouTube App.")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"hideYouTubeLogo_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"hideYouTubeLogo_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
-
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
                 titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
                 accessibilityIdentifier:nil
