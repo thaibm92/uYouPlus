@@ -150,11 +150,11 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     if (self.pageStyle == 0) {
         UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
         customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo.png"];
-        [self.headerView addSubview:customLogoView];
+        [self.logoView addSubview:customLogoView];
     } else if (self.pageStyle == 1) {
         UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
         customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png"];
-        [self.headerView addSubview:customLogoView];
+        [self.logoView addSubview:customLogoView];
     }
 }
 %end
