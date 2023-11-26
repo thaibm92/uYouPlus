@@ -1,5 +1,6 @@
 #import "uYouPlus.h"
 
+//
 static BOOL IsEnabled(NSString *key) {
     return [[NSUserDefaults standardUserDefaults] boolForKey:key];
 }
@@ -54,11 +55,6 @@ static NSString *accessGroupID() {
     NSString *accessGroup = [(__bridge NSDictionary *)result objectForKey:(__bridge NSString *)kSecAttrAccessGroup];
 
     return accessGroup;
-}
-
-//
-static BOOL IsEnabled(NSString *key) {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
 }
 
 //
