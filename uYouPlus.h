@@ -58,6 +58,9 @@
 @property(readonly, nonatomic) long long pageStyle;
 @end
 
+@interface YTNavigationBarTitleView : UIView
+@end
+
 @interface YTChipCloudCell : UIView
 @end
 
