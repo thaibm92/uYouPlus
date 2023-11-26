@@ -202,9 +202,12 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     [logoView addSubview:customLogoView];
 }
 %end
-%hook YTHeaderLogoController // Hide Original YouTube Logo - this will prevent Overlapping on the custom YouTube Logo
-- (YTHeaderLogoController *)init {
-    return NULL;
+%hook YTNavigationBarTitleView // Hide Original YouTube Logo - this will prevent Overlapping on the custom YouTube Logo
+- (void)layoutSubviews {
+    %orig;
+    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
+        self.subviews[1].hidden = YES;
+    }
 }
 %end
 %end
