@@ -159,14 +159,13 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 %new
 - (void)customLogoWithImageName:(NSString *)imageName {
     UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
-    customLogoView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Library/Application Support/uYouPlus.bundle/%@", imageName]];
+    customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/" stringByAppendingString:imageName];
     UIView *logoView = [self valueForKey:@"logoView"];
     [logoView addSubview:customLogoView];
 }
 %end
 
-// Remove Original YouTube Logo - this prevents the custom Logo from Overlapping with the Original
-%hook YTNavigationBarTitleView
+%hook YTNavigationBarTitleView // Hide Original YouTube Logo - this prevents the custom Logo from Overlapping with the Original
 - (void)layoutSubviews {
     %orig;
     if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
