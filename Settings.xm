@@ -629,7 +629,7 @@ extern NSBundle *uYouPlusBundle();
                 [YTSettingsSectionItemClass checkmarkItemWithTitle:@"YouTube Logo (uYouPlusExtra)" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
                     [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:@"ytlogo"];
                     [settingsViewController reloadData];
-                    return YES
+                    return YES;
                 }]
             ];
             YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"YouTube Logo Selector") pickerSectionTitle:nil rows:rows selectedItemIndex:youtubeLogo() parentResponder:[self parentResponder]];
@@ -1690,11 +1690,11 @@ extern NSBundle *uYouPlusBundle();
                 titleDescription:LOC(@"Press this to change and select your perferred YouTube Logo. App restart is required.")
                 accessibilityIdentifier:nil
                 switchOff:@""
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+                switchBlock:^BOOL (YTSettingsCell *cell, BOOL disabled) {
                     [[NSUserDefaults standardUserDefaults] setBool:disabled forKey:@""];
                     return YES;
                 }
-                settingItemId:0], youtubeLogoSection],
+                settingItemId:0], youtubeLogoSection];
 
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"ENABLE_YT_STARTUP_ANIMATION")
                 titleDescription:LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC")
@@ -1884,7 +1884,7 @@ extern NSBundle *uYouPlusBundle();
                     [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"enableVersionSpoofer_enabled"];
                     return YES;
                 }
-                settingItemId:0], versionSpooferSection];
+                settingItemId:0], versionSpooferSection]];
         YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"MISCELLANEOUS") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
         [settingsViewController pushViewController:picker];
         return YES;
