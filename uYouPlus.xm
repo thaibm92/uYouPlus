@@ -150,11 +150,11 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     if (self.pageStyle == 0) {
         UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
         customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo.png"];
-        [self.view addSubview:customLogoView];
+        [self.headerView addSubview:customLogoView];
     } else if (self.pageStyle == 1) {
         UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
         customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png"];
-        [self.view addSubview:customLogoView];
+        [self.headerView addSubview:customLogoView];
     }
 }
 %end
@@ -181,6 +181,15 @@ static void repositionCreateTab(YTIGuideResponse *response) {
     return YES;
 }
 - (void)setTopbarLogoRenderer:(id)renderer {
+}
+%end
+%end
+
+// Hide YouTube Logo - @dayanch96
+%group gHideYouTubeLogo
+%hook YTHeaderLogoController
+- (YTHeaderLogoController *)init {
+    return NULL;
 }
 %end
 %end
@@ -670,15 +679,6 @@ int main(int argc, char * argv[]) {
 - (BOOL)mainAppCoreClientEnableClientCinematicPlaylistsPostMvp { return NO; }
 - (BOOL)mainAppCoreClientEnableClientCinematicTablets { return NO; }
 - (BOOL)iosEnableFullScreenAmbientMode { return NO; }
-%end
-%end
-
-// Hide YouTube Logo
-%group gHideYouTubeLogo
-%hook YTHeaderLogoController
-- (YTHeaderLogoController *)init {
-    return NULL;
-}
 %end
 %end
 
