@@ -145,17 +145,23 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 // uYouPlusExtra Logo - #183
 %group gDefaultYouTubeLogo
 %hook YTHeaderLogoController
+- (id)logoView {
+    id originalLogoView = %orig; 
+    if (originalLogoView) {
+        if (self.pageStyle == 0) {
+            [self customLogoWithImageName:@"youtube_logo.png"];
+        } else if (self.pageStyle == 1) {
+            [self customLogoWithImageName:@"youtube_logo_dark.png"];
+        }
+    } 
+    return originalLogoView;
+}
 %new
-- (void)customLogo {
-    if (self.pageStyle == 0) {
-        UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
-        customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo.png"];
-        [self.logoView addSubview:customLogoView];
-    } else if (self.pageStyle == 1) {
-        UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
-        customLogoView.image = [UIImage imageWithContentsOfFile:@"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png"];
-        [self.logoView addSubview:customLogoView];
-    }
+- (void)customLogoWithImageName:(NSString *)imageName {
+    UIImageView *customLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 122, 48)];
+    customLogoView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Library/Application Support/uYouPlus.bundle/%@", imageName]];
+    UIView *logoView = [self valueForKey:@"logoView"];
+    [logoView addSubview:customLogoView];
 }
 %end
 
