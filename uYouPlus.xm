@@ -4,24 +4,6 @@
 static BOOL IsEnabled(NSString *key) {
     return [[NSUserDefaults standardUserDefaults] boolForKey:key];
 }
-static int youtubeLogo() {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"ytlogo"];
-}
-static BOOL hideYouTubeLogo() {
-    return IsEnabled(@"hideYouTubeLogo_enabled") && youtubeLogo() == 0;
-}
-static BOOL defaultYouTubeLogo() {
-    return IsEnabled(@"defaultYouTubeLogo_enabled") && youtubeLogo() == 1;
-}
-static BOOL centerYouTubeLogo() {
-    return IsEnabled(@"centerYouTubeLogo_enabled") && youtubeLogo() == 2;
-}
-static BOOL premiumYouTubeLogo() {
-    return IsEnabled(@"premiumYouTubeLogo_enabled") && youtubeLogo() == 3;
-}
-static BOOL customYouTubeLogo() {
-    return IsEnabled(@"customYouTubeLogo_enabled") && youtubeLogo() == 4;
-}
 
 // Tweak's bundle for Localizations support - @PoomSmart - https://github.com/PoomSmart/YouPiP/commit/aea2473f64c75d73cab713e1e2d5d0a77675024f
 NSBundle *uYouPlusBundle() {
