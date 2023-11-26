@@ -623,7 +623,7 @@ int main(int argc, char * argv[]) {
 
 %hook YTSegmentableInlinePlayerBarView // Gray Buffer Progress - YTNoModernUI
 - (void)setBufferedProgressBarColor:(id)arg1 {
-     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.90];
+     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.50];
 }
 %end
 
@@ -991,7 +991,7 @@ static void replaceTab(YTIGuideResponse *response) {
 
 %hook YTSegmentableInlinePlayerBarView
 - (void)setBufferedProgressBarColor:(id)arg1 {
-     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.90];
+     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.50];
 }
 %end
 %end
