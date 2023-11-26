@@ -1,5 +1,8 @@
 #import "uYouPlus.h"
 
+static BOOL IsEnabled(NSString *key) {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
 static int youtubeLogo() {
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"ytlogo"];
 }
