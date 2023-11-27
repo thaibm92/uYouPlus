@@ -90,7 +90,7 @@
 "DISABLE_RESUME_TO_SHORTS_DESC" = "Nếu bạn thoát YouTube trong khi đang xem video Shorts, video Shorts đó sẽ không tự động phát khi bạn mở lại YouTube.";
 
 // Hide Pivot Bar Tabs
-"HIDE_PIVOT_BAR_TABS" = "Hide Pivot Bar Tabs";
+"HIDE_PIVOT_BAR_TABS" = "Tuỳ chọn ẩn Menu Tabs";
 
 "HIDE_EXPLORE_TAB" = "Hide 'Explore' Tab";
 "HIDE_EXPLORE_TAB_DESC" = "Hide the Explore Tab in the Pivot Bar.";
