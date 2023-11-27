@@ -161,7 +161,14 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 
 %group gCenterYouTubeLogo
 %hook YTNavigationBarTitleView
-- (BOOL)shouldCenterNavBarTitleView { return YES; }
+- (void)setShouldCenterNavBarTitleView:(BOOL)center {
+    %orig(YES);
+}
+- (BOOL)shouldCenterNavBarTitleView {
+    return YES;
+}
+- (void)alignCustomViewToCenterOfWindow {
+}
 %end
 %end
 
