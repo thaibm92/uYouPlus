@@ -1513,6 +1513,9 @@ static void replaceTab(YTIGuideResponse *response) {
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
 
+    //Enable VersionSpoofer
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enableVersionSpoofer_enabled"];
+
     // Disable updates
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"automaticallyCheckForUpdates"];
 
