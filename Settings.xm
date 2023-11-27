@@ -589,6 +589,7 @@ extern NSBundle *uYouPlusBundle();
         detailTextBlock:^NSString *() {
             switch (appVersionSpoofer()) {
                 case 1:
+		default:
                     return @"v18.34.5";
                 case 2:
                     return @"v18.33.3";
