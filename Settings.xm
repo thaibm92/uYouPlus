@@ -1211,7 +1211,6 @@ extern NSBundle *uYouPlusBundle();
                 case 138:
                     return @"v16.05.7";
                 case 0:
-                default:
                     return @"v18.35.4";
             }
         }
