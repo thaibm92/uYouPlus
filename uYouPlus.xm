@@ -1514,6 +1514,9 @@ static void replaceTab(YTIGuideResponse *response) {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
 
     //Enable VersionSpoofer
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideSponsorBlockButton_enabled"];
+
+    //Enable VersionSpoofer
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enableVersionSpoofer_enabled"];
 
     // Disable updates
