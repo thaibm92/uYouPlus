@@ -1,5 +1,5 @@
 // Settings
-"VERSION" = "uYouPlus's version: %@";
+"VERSION" = "IOSMOD.NET version: %@";
 "VERSION_CHECK" = "Tap to check for updates!";
 
 // Video player options
@@ -88,6 +88,10 @@
 
 "DISABLE_RESUME_TO_SHORTS" = "Disable resume to Shorts";
 "DISABLE_RESUME_TO_SHORTS_DESC" = "If you close YouTube while watching Shorts, Shorts won‘t automatically play next time you launch YouTube.";
+
+"VIDEO_PLAYER_BUTTONS_OPTION"="Video Player Buttons Options";
+
+"APP_SETTINGS_OVERLAY_OPTINON"="App Settings Overlay Options";
 
 // Hide Pivot Bar Tabs
 "HIDE_PIVOT_BAR_TABS" = "Hide Pivot Bar Tabs";
