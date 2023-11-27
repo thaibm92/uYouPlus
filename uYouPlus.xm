@@ -1510,6 +1510,9 @@ static void replaceTab(YTIGuideResponse *response) {
         %init(gDisableLiveChatSection);
     }
 
+    //Enable Premium Logo
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
+
     // Disable updates
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"automaticallyCheckForUpdates"];
 
