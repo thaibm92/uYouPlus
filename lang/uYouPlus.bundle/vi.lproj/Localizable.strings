@@ -89,6 +89,24 @@
 "DISABLE_RESUME_TO_SHORTS" = "Tắt tính năng tự động tiếp tục Shorts";
 "DISABLE_RESUME_TO_SHORTS_DESC" = "Nếu bạn thoát YouTube trong khi đang xem video Shorts, video Shorts đó sẽ không tự động phát khi bạn mở lại YouTube.";
 
+// Hide Pivot Bar Tabs
+"HIDE_PIVOT_BAR_TABS" = "Hide Pivot Bar Tabs";
+
+"HIDE_EXPLORE_TAB" = "Hide 'Explore' Tab";
+"HIDE_EXPLORE_TAB_DESC" = "Hide the Explore Tab in the Pivot Bar.";
+
+"HIDE_SHORTS_TAB" = "Hide 'Shorts' Tab";
+"HIDE_SHORTS_TAB_DESC" = "Hide the Explore Tab in the Pivot Bar.";
+
+"HIDE_UPLOAD_TAB" = "Hide 'Upload' Tab";
+"HIDE_UPLOAD_TAB_DESC" = "Hide the Explore Tab in the Pivot Bar.";
+
+"HIDE_SUBSCRIPTIONS_TAB" = "Hide 'Subscriptions' Tab";
+"HIDE_SUBSCRIPTIONS_TAB_DESC" = "Hide the Subscriptions Tab in the Pivot Bar.";
+
+"HIDE_YOU_TAB" = "Hide 'You' Tab";
+"HIDE_YOU_TAB_DESC" = "Hide the You Tab in the Pivot Bar.";
+
 // Theme
 "THEME_OPTIONS" = "Tùy chọn giao diện";
 
