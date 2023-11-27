@@ -1585,6 +1585,22 @@ static void replaceTab(YTIGuideResponse *response) {
         %init(gDisableLiveChatSection);
     }
 
+    if (IsEnabled(@"hideExploreTab_enabled")) {
+        %init(gHideExploreTab);
+    }
+    if (IsEnabled(@"hideShortsTab_enabled")) {
+        %init(gHideShortsTab);
+    }
+    if (IsEnabled(@"hideUploadTab_enabled")) {
+        %init(gHideUploadTab);
+    }
+    if (IsEnabled(@"hideSubscriptionsTab_enabled")) {
+        %init(gHideSubscriptionsTab);
+    }
+    if (IsEnabled(@"hideYouTab_enabled")) {
+        %init(gHideYouTab);
+    }
+
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
 
