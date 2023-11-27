@@ -1,5 +1,10 @@
 #import "uYouPlus.h"
 
+//
+static BOOL IsEnabled(NSString *key) {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
+
 // Tweak's bundle for Localizations support - @PoomSmart - https://github.com/PoomSmart/YouPiP/commit/aea2473f64c75d73cab713e1e2d5d0a77675024f
 NSBundle *uYouPlusBundle() {
     static NSBundle *bundle = nil;
@@ -32,11 +37,6 @@ static NSString *accessGroupID() {
     NSString *accessGroup = [(__bridge NSDictionary *)result objectForKey:(__bridge NSString *)kSecAttrAccessGroup];
 
     return accessGroup;
-}
-
-//
-static BOOL IsEnabled(NSString *key) {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
 }
 
 //
@@ -142,62 +142,37 @@ static void repositionCreateTab(YTIGuideResponse *response) {
 }
 %end
 
-// uYouPlusExtra Logo - #183
-%group gDefaultYouTubeLogo
+// Hide YouTube Logo - @dayanch96
+%group gHideYouTubeLogo
 %hook YTHeaderLogoController
-- (void)setLogoView:(id)logoView {
-    if ([logoView isKindOfClass:[UIImageView class]]) {
-        UIImageView *imageView = (UIImageView *)logoView;
-
-        if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
-            NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-            if (self.pageStyle == 1) {
-                imageView.image = [UIImage imageWithContentsOfFile:customDarkLogo];
-            }
-        }
-        else if ([imageView.accessibilityIdentifier isEqualToString:@"YOUTUBE_LOGO"]) {
-            NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-            if (self.pageStyle == 0) {
-                imageView.image = [UIImage imageWithContentsOfFile:customLightLogo];
-            }
-        }
-    }
+- (YTHeaderLogoController *)init {
+    return NULL;
+}
+%end
+%hook YTNavigationBarTitleView
+- (void)layoutSubviews {
     %orig;
-}
-%end
-%hook UIImage
-+ (UIImage *)imageNamed:(NSString *)name {
-    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-    
-    if ([name isEqualToString:@"youtube_logo_dark"]) {
-        return [UIImage imageWithContentsOfFile:customDarkLogo];
-    } else if ([name isEqualToString:@"youtube_logo"]) {
-        return [UIImage imageWithContentsOfFile:customLightLogo];
+    if (self.subviews.count > 1 && [self.subviews[1].accessibilityIdentifier isEqualToString:@"id.yoodle.logo"]) {
+        self.subviews[1].hidden = YES;
     }
-    return %orig;
-}
-%end
-%hook UIImageView
-- (void)setImage:(UIImage *)image {
-    NSString *customDarkLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo_dark.png";
-    NSString *customLightLogo = @"/Library/Application Support/uYouPlus.bundle/youtube_logo.png";
-    
-    if ([NSStringFromClass([image class]) isEqualToString:@"UIImage"] &&
-        [NSStringFromCGSize(image.size) isEqualToString:@"{122, 48}"] &&
-        [NSStringFromCGRect(self.bounds) isEqualToString:@"{{0, 0}, {122, 48}}"]) {
-        
-        if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo_dark"]) {
-            image = [UIImage imageWithContentsOfFile:customDarkLogo];
-        } else if ([image.accessibilityIdentifier isEqualToString:@"youtube_logo"]) {
-            image = [UIImage imageWithContentsOfFile:customLightLogo];
-        }
-    }
-    %orig(image);
 }
 %end
 %end
 
+%group gCenterYouTubeLogo
+%hook YTNavigationBarTitleView
+- (void)setShouldCenterNavBarTitleView:(BOOL)center {
+    %orig(YES);
+}
+- (BOOL)shouldCenterNavBarTitleView {
+    return YES;
+}
+- (void)alignCustomViewToCenterOfWindow {
+}
+%end
+%end
+
+// YouTube Premium Logo - @arichorn - this doesn't always function
 %group gPremiumYouTubeLogo
 %hook YTHeaderLogoController
 - (void)setPremiumLogo:(BOOL)isPremiumLogo {
@@ -608,7 +583,7 @@ int main(int argc, char * argv[]) {
 
 %hook YTSegmentableInlinePlayerBarView // Gray Buffer Progress - YTNoModernUI
 - (void)setBufferedProgressBarColor:(id)arg1 {
-     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.90];
+     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.50];
 }
 %end
 
@@ -697,15 +672,6 @@ int main(int argc, char * argv[]) {
 - (BOOL)mainAppCoreClientEnableClientCinematicPlaylistsPostMvp { return NO; }
 - (BOOL)mainAppCoreClientEnableClientCinematicTablets { return NO; }
 - (BOOL)iosEnableFullScreenAmbientMode { return NO; }
-%end
-%end
-
-// Hide YouTube Logo
-%group gHideYouTubeLogo
-%hook YTHeaderLogoController
-- (YTHeaderLogoController *)init {
-    return NULL;
-}
 %end
 %end
 
@@ -985,7 +951,7 @@ static void replaceTab(YTIGuideResponse *response) {
 
 %hook YTSegmentableInlinePlayerBarView
 - (void)setBufferedProgressBarColor:(id)arg1 {
-     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.90];
+     [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.50];
 }
 %end
 %end
@@ -1045,7 +1011,25 @@ static void replaceTab(YTIGuideResponse *response) {
 }
 %end
 
-// Hide Shorts Cells - @MiRO92 & @arichorn
+// Hide Shorts Cells - @PoomSmart & @iCrazeiOS
+%hook YTIElementRenderer
+- (NSData *)elementData {
+    NSString *description = [self description];
+    if (IsEnabled(@"hideShortsCells_enabled")) {
+        if ([description containsString:@"shorts_shelf.eml"] ||
+            [description containsString:@"#shorts"] ||
+            [description containsString:@"shorts_video_cell.eml"] ||
+            [description containsString:@"6Shorts"]) {
+            if (![description containsString:@"history*"]) {
+                return nil;
+            }
+        }
+    }
+    return %orig;
+}
+%end
+
+// Hide Community Posts - @michael-winay & @arichorn
 %hook YTAsyncCollectionView
 - (id)cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = %orig;
@@ -1054,18 +1038,6 @@ static void replaceTab(YTIGuideResponse *response) {
         _ASCollectionViewCell *cell = %orig;
         if ([cell respondsToSelector:@selector(node)]) {
             NSString *idToRemove = [[cell node] accessibilityIdentifier];
-
-            if (IsEnabled(@"hideShortsCells_enabled")) {
-                if ([idToRemove isEqualToString:@"eml.shorts-video-item"] ||
-                    [idToRemove isEqualToString:@"eml.shelf_header"] ||
-                    [idToRemove isEqualToString:@"statement_banner.view"] ||
-                    [idToRemove isEqualToString:@"compact.view"] ||
-                    [idToRemove isEqualToString:@"eml.inline_shorts"]) {
-                    [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
-                }
-            }
-
-// Hide Community Posts            
             if (IsEnabled(@"hideCommunityPosts_enabled")) {
                 if ([idToRemove rangeOfString:@"id.ui.backstage.post"].location != NSNotFound) {
                     [self removeShortsAndFeaturesAdsAtIndexPath:indexPath];
@@ -1079,7 +1051,6 @@ static void replaceTab(YTIGuideResponse *response) {
 - (void)removeShortsAndFeaturesAdsAtIndexPath:(NSIndexPath *)indexPath {
     [self deleteItemsAtIndexPaths:@[indexPath]];
 }
-
 %end
 
 // Hide the (Remix / Thanks / Download / Clip / Save) Buttons under the Video Player - @arichorn
@@ -1433,8 +1404,11 @@ static void replaceTab(YTIGuideResponse *response) {
     // dlopen([[NSString stringWithFormat:@"%@/Frameworks/uYou.dylib", [[NSBundle mainBundle] bundlePath]] UTF8String], RTLD_LAZY);
 
     %init;
-    if (IsEnabled(@"defaultYouTubeLogo_enabled")) {
-        %init(gDefaultYouTubeLogo);
+    if (IsEnabled(@"hideYouTubeLogo_enabled")) {
+        %init(gHideYouTubeLogo);
+    }
+    if (IsEnabled(@"centerYouTubeLogo_enabled")) {
+        %init(gCenterYouTubeLogo);
     }
     if (IsEnabled(@"premiumYouTubeLogo_enabled")) {
         %init(gPremiumYouTubeLogo);
@@ -1483,9 +1457,6 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (IsEnabled(@"stockVolumeHUD_enabled")) {
         %init(gStockVolumeHUD);
-    }
-    if (IsEnabled(@"hideYouTubeLogo_enabled")) {
-        %init(gHideYouTubeLogo);
     }
     if (IsEnabled(@"hideHeatwaves_enabled")) {
         %init(gHideHeatwaves);
