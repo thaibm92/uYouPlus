@@ -350,7 +350,7 @@ extern NSBundle *uYouPlusBundle();
     [sectionItems addObject:shortsControlOverlayGroup];
 
 # pragma mark - Video Player Buttons
-    YTSettingsSectionItem *videoPlayerButtonsGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"Video Player Buttons Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+    YTSettingsSectionItem *videoPlayerButtonsGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"VIDEO_PLAYER_BUTTONS_OPTION") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide the Remix Button under player")
                 titleDescription:LOC(@"Hides the Remix Button under the video player.")
@@ -412,14 +412,14 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0]
         ];        
-        YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"Video Player Buttons Options") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
+        YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"VIDEO_PLAYER_BUTTONS_OPTION") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
         [settingsViewController pushViewController:picker];
         return YES;
     }];
     [sectionItems addObject:videoPlayerButtonsGroup];
 
 # pragma mark - App Settings Overlay Options
-    YTSettingsSectionItem *appSettingsOverlayGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"App Settings Overlay Options") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+    YTSettingsSectionItem *appSettingsOverlayGroup = [YTSettingsSectionItemClass itemWithTitle:LOC(@"APP_SETTINGS_OVERLAY_OPTINON") accessibilityIdentifier:nil detailTextBlock:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
         NSArray <YTSettingsSectionItem *> *rows = @[
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide `Account` Section")
                 titleDescription:LOC(@"App restart is required.")
@@ -543,7 +543,7 @@ extern NSBundle *uYouPlusBundle();
                 }
                 settingItemId:0]
         ];        
-        YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"App Settings Overlay Options") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
+        YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"APP_SETTINGS_OVERLAY_OPTINON") pickerSectionTitle:nil rows:rows selectedItemIndex:NSNotFound parentResponder:[self parentResponder]];
         [settingsViewController pushViewController:picker];
         return YES;
     }];
