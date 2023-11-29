@@ -588,9 +588,10 @@ extern NSBundle *uYouPlusBundle();
         accessibilityIdentifier:nil
         detailTextBlock:^NSString *() {
             switch (appVersionSpoofer()) {
+		case 0:
+		    return @"v18.34.5";
                 case 1:
 		    return @"v18.33.3";
-                case 0:
 		default:
                     return @"v18.34.5";
                     
