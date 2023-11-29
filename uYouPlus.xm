@@ -1600,6 +1600,8 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"hideYouTab_enabled")) {
         %init(gHideYouTab);
     }
+    //Default selected case 0 for versionSpoofer
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"versionSpoofer"];
 
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
