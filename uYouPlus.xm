@@ -1600,12 +1600,6 @@ static void replaceTab(YTIGuideResponse *response) {
     if (IsEnabled(@"hideYouTab_enabled")) {
         %init(gHideYouTab);
     }
-    
-    //Default selected case 1 for versionSpoofer
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"versionSpoofer"]) {
-    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
@@ -1641,5 +1635,8 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (![allKeys containsObject:@"YouPiPEnabled"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"YouPiPEnabled"]; 
+    }
+    if (![allKeys containsObject:@"versionSpoofer"]) { 
+       [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
     }
 }
