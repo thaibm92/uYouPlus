@@ -588,6 +588,8 @@ extern NSBundle *uYouPlusBundle();
         accessibilityIdentifier:nil
         detailTextBlock:^NSString *() {
             switch (appVersionSpoofer()) {
+                case 0:
+		    return @"v18.36.3";
                 case 1:
                     return @"v18.34.5";
                 case 2:
@@ -864,14 +866,13 @@ extern NSBundle *uYouPlusBundle();
                     return @"v16.05.8";
                 case 138:
                     return @"v16.05.7";
-                case 0:
                 default:
-                    return @"Latest Version";
+                    return @"v18.46.3";
             }
         }
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
             NSArray <YTSettingsSectionItem *> *rows = @[
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"Latest Version" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"v18.36.3" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
                     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"versionSpoofer"];
                     [settingsViewController reloadData];
                     return YES;
