@@ -1607,6 +1607,11 @@ static void replaceTab(YTIGuideResponse *response) {
     //Enable Hide SponsorBlock Button
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideSponsorBlockButton_enabled"];
 
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"versionSpoofer"]) {
+	[[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
+      	[[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
     //Enable VersionSpoofer
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enableVersionSpoofer_enabled"];
 
