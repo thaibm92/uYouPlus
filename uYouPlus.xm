@@ -1604,12 +1604,6 @@ static void replaceTab(YTIGuideResponse *response) {
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
 
-    //Enable Hide SponsorBlock Button
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideSponsorBlockButton_enabled"];
-
-    //Enable VersionSpoofer
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enableVersionSpoofer_enabled"];
-
     // Disable updates
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"automaticallyCheckForUpdates"];
 
@@ -1635,6 +1629,12 @@ static void replaceTab(YTIGuideResponse *response) {
     }
     if (![allKeys containsObject:@"YouPiPEnabled"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"YouPiPEnabled"]; 
+    }
+    if (![allKeys containsObject:@"hideSponsorBlockButton_enabled"]) { 
+       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideSponsorBlockButton_enabled"];
+    }
+    if (![allKeys containsObject:@"enableVersionSpoofer_enabled"]) { 
+       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"enableVersionSpoofer_enabled"];
     }
     if (![allKeys containsObject:@"versionSpoofer"]) { 
        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
