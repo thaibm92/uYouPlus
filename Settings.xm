@@ -589,7 +589,7 @@ extern NSBundle *uYouPlusBundle();
         detailTextBlock:^NSString *() {
             switch (appVersionSpoofer()) {
                 case 0:
-		    return @"v18.36.3";
+		    return @"v18.46.3";
                 case 1:
                     return @"v18.34.5";
                 case 2:
@@ -872,7 +872,7 @@ extern NSBundle *uYouPlusBundle();
         }
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
             NSArray <YTSettingsSectionItem *> *rows = @[
-                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"v18.36.3" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                [YTSettingsSectionItemClass checkmarkItemWithTitle:@"v18.46.3" titleDescription:nil selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
                     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"versionSpoofer"];
                     [settingsViewController reloadData];
                     return YES;
