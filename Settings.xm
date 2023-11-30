@@ -736,7 +736,7 @@ extern NSBundle *uYouPlusBundle();
                     return YES;
                 }
                 settingItemId:0],
-
+/*
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Center YouTube Logo")
                 titleDescription:LOC(@"Toggle this to move the official YouTube Logo to the Center. App restart is required.")
                 accessibilityIdentifier:nil
@@ -746,7 +746,7 @@ extern NSBundle *uYouPlusBundle();
                     return YES;
                 }
                 settingItemId:0],
-
+*/
 	    [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"Hide YouTube Logo")
                 titleDescription:LOC(@"Toggle this to hide the YouTube Logo in the YouTube App.")
                 accessibilityIdentifier:nil
