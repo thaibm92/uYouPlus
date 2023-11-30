@@ -1604,12 +1604,6 @@ static void replaceTab(YTIGuideResponse *response) {
     //Default selected case 1 for versionSpoofer
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
 
-if (![[NSUserDefaults standardUserDefaults] objectForKey:@"versionSpoofer"]) {
-    // Nếu chưa, đặt giá trị mặc định là 0
-    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
     //Enable Premium Logo
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"premiumYouTubeLogo_enabled"];
 
@@ -1644,8 +1638,5 @@ if (![[NSUserDefaults standardUserDefaults] objectForKey:@"versionSpoofer"]) {
     }
     if (![allKeys containsObject:@"YouPiPEnabled"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"YouPiPEnabled"]; 
-    }
-    if (![allKeys containsObject:@"versionSpoofer"]) { 
-       [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"versionSpoofer"];
     }
 }
